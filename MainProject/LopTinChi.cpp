@@ -20,7 +20,7 @@ int ChonMaLopTinChi()
 	return -1;
 }
 // tao 1 mang tu 1 den 5000
-void LTC_Initial()
+void Initial_LLTC(ListLopTinChi &lltc)
 {
 	for (int i = 0; i < DSDKMAX; i++)
 	{
@@ -28,36 +28,47 @@ void LTC_Initial()
 	}
 }
 
-void Nhap(LopTinChi *ltc)
+void Nhap(LopTinChi *ltc, POINT p)
 {
 	ltc->MALOPTC = ChonMaLopTinChi();
+	char mmh[15], nk[5], hk[11], n[5], max[10], min[10] = "\0";
+	strcpy_s(mmh, "\0");
+	strcpy_s(nk, "\0");
+	strcpy_s(n, "\0");
+	strcpy_s(max, "\0");
+	strcpy_s(hk, "\0");
+	EnterLTCFrame(p, false);
+	gotoxy(p.x + 14, p.y + 5); cout << ltc->MALOPTC;
+	strcpy_s(mmh, EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 5));
+	strcpy_s(nk, EntryData(nk, { p.x + 14, p.y + 9 }, eModeImportData::NUMBER, 4));
+	strcpy_s(hk, EntryData(hk, { p.x + 14, p.y + 11 }, eModeImportData::NUMBER, 3));
+	strcpy_s(n, EntryData(n, { p.x + 14, p.y + 13 }, eModeImportData::NUMBER, 2));
+	strcpy_s(max, EntryData(max, { p.x + 14, p.y + 15 }, eModeImportData::NUMBER, 3));
+	strcpy_s(min, EntryData(min, { p.x + 14, p.y + 17 }, eModeImportData::NUMBER, 3));
 
-	cout << "Nhap Ma Mon Hoc: ";
-	cin >> ltc->MAMH;
-	//fflush(stdin);
-	cout << "Nhap nien khoa: ";
-	cin >> ltc->NienKhoa;
-	cout << "Nhap Hoc Ky: ";
-	cin >> ltc->HocKy;
-	//fflush(stdin);
-	cout << "Nhap Nhom: ";
-	cin >> ltc->Nhom;
-	//fflush(stdin);
-	cout << "Nhap Sinh Vien Min: ";
-	cin >> ltc->SvMin;
-	//fflush(stdin);
-	cout << "Nhap Sinh Vien Max: ";
-	cin >> ltc->SvMax;
+	strcpy_s(ltc->MAMH, mmh);
+	ltc->NienKhoa = atoi(nk);
+	ltc->HocKy = atoi(hk);
+	ltc->Nhom = atoi(n);
+	ltc->SvMax = atoi(max);
+	ltc->SvMin = atoi(min);
+
+	Button(true, "XONG", { p.x + 23, p.y + 19 }, { 8, 3 }, ColorCode_Blue, ColorCode_Black);
+	_getch();
 }
 
-void Xuat(LopTinChi *ltc)
-{
-	cout << "\nMa Lop: " << ltc->MALOPTC;
-	cout << "\nMa Mon Hoc: " << ltc->MAMH;
-	cout << "\nNien khoa: " << ltc->NienKhoa;
-	cout << "\nHoc Ky: " << ltc->HocKy;
-	cout << "\nSinh Vien Min: " << ltc->SvMin;
-	cout << "\nSinh Vien Max: " << ltc->SvMax;
+
+void Xuat(LopTinChi *ltc, POINT p)
+{   // 0        9           21          33       42     49       58       67
+	//"| Ma Lop | M Mon Hoc | Niem Khoa | Hoc Ky | Nhom | SV Max | Sv Min |\n";
+	gotoxy(p.x, p.y); cout << "| " << ltc->MALOPTC;
+	gotoxy(p.x + 9, p.y); cout  << "| "<< ltc->MAMH;
+	gotoxy(p.x + 21, p.y); cout << "| " <<  ltc->NienKhoa;
+	gotoxy(p.x + 33, p.y); cout << "| " <<  ltc->HocKy;
+	gotoxy(p.x + 58, p.y); cout << "| " <<  ltc->SvMin;
+	gotoxy(p.x + 49, p.y); cout << "| " <<  ltc->SvMax;
+	gotoxy(p.x + 42, p.y); cout << "| " <<  ltc->Nhom;
+	gotoxy(p.x + 67, p.y); cout << "|";
 }
 
 void Nhap_LLTC(ListLopTinChi& lltc)
@@ -68,22 +79,25 @@ void Nhap_LLTC(ListLopTinChi& lltc)
 		//nhap vao 1 nut
 
 		lltc.ds[lltc.SoLuong] = new LopTinChi;
-		Nhap(lltc.ds[lltc.SoLuong]);
+		Nhap(lltc.ds[lltc.SoLuong], {10, 10});
 
 		// dua nut ltc vao lltc
 		lltc.SoLuong += 1;
 		//fflush(stdin);
-		cout << "\n\nBan Muon Mo Them Lop Tin Chi Khong(1=YES/0=NO): ";
-		cin >> choice;
+		system("cls");
+		choice = Alert("Ban Muon Mo Them Lop Tin Chi Khong(Y to Yes or any key to NO)", { 15, 15 });
 	} while (choice == 1);
 }
 
 void Xuat_LLTC(ListLopTinChi lltc)
 {
+	POINT p = {10, 10};
+	ShowListLTCFrame(p);
 	for (int i = 0; i < lltc.SoLuong; i++)
 	{
-		Xuat(lltc.ds[i]);
-		cout << std::endl;
+		Xuat(lltc.ds[i], {p.x, p.y + 6 + (i * 2)});
+		
+		gotoxy( p.x, p.y + 7 + (i * 2)); cout << "|------------------------------------------------------------------|";
 	}
 }
 
@@ -94,7 +108,8 @@ void Them_LLTC(ListLopTinChi& lltc)
 	LopTinChi ltc;
 	//nhap vao 1 nut
 	lltc.ds[lltc.SoLuong] = new LopTinChi;
-	Nhap(lltc.ds[lltc.SoLuong++]);
+	Nhap(lltc.ds[lltc.SoLuong++], {7, 7});
+	Alert("Da mo them lop tin chi thanh cong!", {15, 5}, ColorCode_Red, 1000, ColorCode_White);
 }
 
 void Xoa_LLTC(ListLopTinChi &lltc)
@@ -105,14 +120,27 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 	int choice = 0;
 	do
 	{
+		system("cls");
+		POINT p = { 5, 5 };
 		int mltc;
-		cout << "Nhap vao ma lop tin chi muon xoa: ";
-		cin >> mltc;
-
+		EnterCodeLTCFrame(p);
+		char val[6];
+		strcpy_s(val, "\0");
+		//TODO:Enter code LTC
+		mltc = atoi(EntryData(val, {p.x + 14, p.y + 5}, eModeImportData::NUMBER, 4));
 		for (int i = 0; i < lltc.SoLuong; i++)
 		{
 			if (lltc.ds[i]->MALOPTC == mltc)
 			{
+				//TODO: Show detail this ltc
+				ShowListToDeleteLTCFrame({ p.x, p.y + 8 });
+				Xuat(lltc.ds[i], { p.x, p.y + 14 });
+
+				//TODO: Show two button for option delete or not.
+				if (TwoOptionYN({p.x + 10, p.y + 17}) == 1)
+					return;
+
+				//TODO: Delete current LTC and update List.
 				arrMaLop[mltc - 1] = mltc;
 				for (int j = i; j < lltc.SoLuong - 1; j++)
 				{
@@ -126,14 +154,13 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 				}
 				delete lltc.ds[lltc.SoLuong - 1];
 				lltc.SoLuong--;
-				cout << "Xoa thanh cong!";
+				Alert("Xoa thanh cong", { 3, 3 }, ColorCode_Red, 1000, ColorCode_White);
 				return;
 			}
 		}
 
-		cout << "Khong tim thay ma lop tin chi tuong ung.\n";
-		cout << "\n\nBan Muon Nhap Lai Ma Lop Tin Chi Khong(1=YES/0=NO): ";
-		cin >> choice;
+		Alert("Khong tim thay ma lop tin chi tuong ung.", { 3, 3 }, ColorCode_Red, 1000, ColorCode_White);
+		choice = Alert("Ban Muon Nhap Lai Ma Lop Tin Chi Khong(y/any key): ", { 3, 3 });
 	} while (choice == 1);
 }
 

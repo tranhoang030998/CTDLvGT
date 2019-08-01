@@ -1,37 +1,27 @@
-#include <iostream>
-#include "LopTinChi.h"
+#include "Mylib.h"
 #include "Confirm.h"
-
+#include "Frame.h"
+#include "LopTinChi.h"
 
 int main()
 {
-	LTC_Initial();
-
+	
 	ListLopTinChi lltc;
+	Initial_LLTC(lltc);
+	/*Nhap_LLTC(lltc);
 
-	//LTC_Nhap(lltc);
+	LuuFile_LLTC(lltc);*/
 
-	//LTC_Them(lltc);
-
-	//LTC_Xuat(lltc);
-
-	//LuuFile_LLTC(lltc);
-	/*std::cout << "\nLuu xong\n";
-
-	std::cout << "\n\nSau khi doc\n\n";
 	DocFile_LLTC(lltc);
+
+	system("cls");
 	Xuat_LLTC(lltc);
 
+	system("cls");
+	//Them_LLTC(lltc);
 	Xoa_LLTC(lltc);
 
-	Xuat_LLTC(lltc);
-
-	Them_LLTC(lltc);
-
-	std::cout << "Change\n";
-	Xuat_LLTC(lltc);*/
-
-
+	gotoxy(40, 40);
 	system("pause");
 	return 0;
 }

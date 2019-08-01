@@ -1,14 +1,16 @@
 #pragma once
-#include "Mylib.h"
 #include <fstream>
 #include <iostream> 
 #include <cstring> 
 #include "DangKy.h"
 #include <cstddef>
 #include "Global.h"
+#include "Mylib.h"
+#include "Confirm.h"
+#include "Frame.h"
+
+
 //Lop tin chi
-
-
 
 struct LopTinChi {
 	int MALOPTC;
@@ -18,7 +20,7 @@ struct LopTinChi {
 	int Nhom;
 	int SvMax;
 	int SvMin;
-	
+
 	struct ListDangKy* listSV = NULL;
 };
 struct ListLopTinChi {
@@ -26,7 +28,7 @@ struct ListLopTinChi {
 	LopTinChi* ds[DSDKMAX];
 };
 
-void LTC_Initial();
+void Initial_LLTC(ListLopTinChi &lltc);
 
 bool IsFull(ListLopTinChi lltc);
 
