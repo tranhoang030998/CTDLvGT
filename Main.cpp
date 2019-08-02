@@ -19,7 +19,8 @@ int main()
 
 	system("cls");
 	//Them_LLTC(lltc);
-	Xoa_LLTC(lltc);
+	//Xoa_LLTC(lltc);
+	Sua_LLTC(lltc);
 
 	gotoxy(40, 40);
 	system("pause");
