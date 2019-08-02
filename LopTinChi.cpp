@@ -32,11 +32,13 @@ void Nhap(LopTinChi *ltc, POINT p)
 {
 	ltc->MALOPTC = ChonMaLopTinChi();
 	char mmh[15], nk[5], hk[11], n[5], max[10], min[10] = "\0";
+	//tao 1 bien
 	strcpy_s(mmh, "\0");
 	strcpy_s(nk, "\0");
 	strcpy_s(n, "\0");
 	strcpy_s(max, "\0");
 	strcpy_s(hk, "\0");
+	//tao 1 mang k co du lieu.them du lieu vao mang roi dua vao mang chinh
 	EnterLTCFrame(p, false);
 	gotoxy(p.x + 14, p.y + 5); cout << ltc->MALOPTC;
 	strcpy_s(mmh, EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 5));
@@ -77,10 +79,8 @@ void Nhap_LLTC(ListLopTinChi& lltc)
 	do {
 		LopTinChi ltc;
 		//nhap vao 1 nut
-
-		lltc.ds[lltc.SoLuong] = new LopTinChi;
+		lltc.ds[lltc.SoLuong] = new LopTinChi;// tao 1 con tro
 		Nhap(lltc.ds[lltc.SoLuong], {10, 10});
-
 		// dua nut ltc vao lltc
 		lltc.SoLuong += 1;
 		//fflush(stdin);
@@ -126,21 +126,21 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 		EnterCodeLTCFrame(p);
 		char val[6];
 		strcpy_s(val, "\0");
-		//TODO:Enter code LTC
+		//nhap ma LTC
 		mltc = atoi(EntryData(val, {p.x + 14, p.y + 5}, eModeImportData::NUMBER, 4));
 		for (int i = 0; i < lltc.SoLuong; i++)
 		{
 			if (lltc.ds[i]->MALOPTC == mltc)
 			{
-				//TODO: Show detail this ltc
+				//hien thi chi tiet ds thong tin LTC muon xoa
 				ShowListToDeleteLTCFrame({ p.x, p.y + 8 });
 				Xuat(lltc.ds[i], { p.x, p.y + 14 });
 
-				//TODO: Show two button for option delete or not.
+				//hien thi 2 lua chon xoa or k xoa
 				if (TwoOptionYN({p.x + 10, p.y + 17}) == 1)
 					return;
 
-				//TODO: Delete current LTC and update List.
+				//xoa ds ltc hien tai va cap nhat danh sach
 				arrMaLop[mltc - 1] = mltc;
 				for (int j = i; j < lltc.SoLuong - 1; j++)
 				{

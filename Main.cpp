@@ -18,8 +18,8 @@ int main()
 	Xuat_LLTC(lltc);
 
 	system("cls");
-	//Them_LLTC(lltc);
-	Xoa_LLTC(lltc);
+	Them_LLTC(lltc);
+	//Xoa_LLTC(lltc);
 
 	gotoxy(40, 40);
 	system("pause");
