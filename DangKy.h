@@ -19,3 +19,6 @@ struct ListDangKy {
 void Nhap_DSDK(ListDangKy *&ldk);
 void ThemSinhVien_DSDK(ListLopTinChi &lltc);
 void XoaSinhVien_DSDK(ListLopTinChi &lltc);
+
+void LuuFile_DSDK(ListLopTinChi lltc);
+void DocFile_DSDK(ListLopTinChi &lltc);

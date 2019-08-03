@@ -6,3 +6,5 @@ void ShowListLTCFrame(POINT p);
 void EnterCodeLTCFrame(POINT p);
 void ShowListToDeleteLTCFrame(POINT p);
 void EnterMaSVFrame(POINT p);
+void EnterSVFrame(POINT p);
+void ShowListSVFrame(POINT p);

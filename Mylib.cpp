@@ -223,7 +223,7 @@ void Button(bool isFocus, char *text, POINT lc, SIZE sizeBTN, int colorFocus, in
 	SetBGColor(ColorCode_Black); // reset;
 }
 
-int TwoOptionYN(POINT p)
+int TwoOptionYN(POINT p) // 0 => yes, 1 => no
 {
 	POINT pY = {p.x, p.y};
 	POINT pN = {p.x + 40, p.y};

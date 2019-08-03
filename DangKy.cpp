@@ -72,9 +72,6 @@ int Erase_DSDK(ListDangKy *&ldk, char *maSV)
 void DocFile_DSDK(ListLopTinChi &lltc)
 {
 	fstream FileIn("DSDANGKY.TXT", ios::in);
-	int memoEnable = lltc.SoLuong;
-	if (lltc.SoLuong != 0)
-		lltc.SoLuong = 0;
 
 	while (!FileIn.eof())
 	{
@@ -90,7 +87,7 @@ void DocFile_DSDK(ListLopTinChi &lltc)
 		}
 		else
 		{
-			while (quantity-- >= 0)
+			while (quantity-- > 0)
 			{
 				ListDangKy *noteDK = new ListDangKy;
 				FileIn >> noteDK->ThongTinDangKy.MASV;
@@ -122,9 +119,11 @@ void LuuFile_DSDK(ListLopTinChi lltc)
 
 		ListDangKy *pLDK = lltc.ds[n]->listSV;
 		int quantity = Count_LDK(pLDK);
-		FileOut << quantity << endl;
+		FileOut << quantity;
+
 		while (pLDK != NULL)
 		{
+				FileOut << endl;
 			FileOut << pLDK->ThongTinDangKy.MASV << endl
 				<< pLDK->ThongTinDangKy.DIEM;
 			pLDK = pLDK->pNext;
