@@ -118,19 +118,27 @@ int Alert(string str, POINT p)
 //Pop up canh bao
 void Alert(string str, POINT p, int color, int sleep, int bgColor)
 {
+	SetColor(color);
+	SetBGColor(bgColor);
 	gotoxy(p.x, p.y);
 	std::cout << "                                        ";
-	SetBGColor(bgColor);
 	gotoxy(p.x, p.y + 1);
 	std::cout << "                                        ";
-	SetColor(color);
 	gotoxy(p.x, p.y + 1);
 	std::cout << str;
-	Sleep(sleep);
+	
 	gotoxy(p.x, p.y + 2);
 	std::cout << "                                        ";
+	Sleep(sleep);
 	SetBGColor(ColorCode_Black);
 	SetColor(ColorCode_White);
+
+	gotoxy(p.x, p.y);
+	std::cout << "                                        ";
+	gotoxy(p.x, p.y + 1);
+	std::cout << "                                        ";
+	gotoxy(p.x, p.y + 2);
+	std::cout << "                                        ";
 }
 
 void drawRectangle(POINT &result, POINT lc, SIZE s, int colorBG, int colorBorder)

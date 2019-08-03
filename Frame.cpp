@@ -60,3 +60,13 @@ void ShowListToDeleteLTCFrame(POINT p)
 	gotoxy(p.x, p.y + 13); cout << "|                                                                  |\n";
 	gotoxy(p.x, p.y + 14); cout << "|------------------------------------------------------------------|\n";
 }
+
+void EnterMaSVFrame(POINT p) // x = 14
+{
+	gotoxy(p.x, p.y + 1); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                Nhap Ma Sinh Vien              |\n";
+	gotoxy(p.x, p.y + 3); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout << "|             ___________________________       |";
+	gotoxy(p.x, p.y + 5); cout << "| Ma SV      |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout << "|-----------------------------------------------|";
+}

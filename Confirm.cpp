@@ -220,7 +220,8 @@ char* EntryData(char *text, POINT lc, eModeImportData mode, int maxLength) // TE
 		if (_kbhit())
 		{// cho datansap xep lon xon,roi dung gi de load ra 1 file, co che no ntn
 			char key = _getch();
-
+			if (key == 13)
+				return "\0";
 			if ((key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') && !isControl)
 			{
 				//cout << "not is  control" << endl;
