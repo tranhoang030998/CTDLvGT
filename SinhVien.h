@@ -21,4 +21,6 @@ typedef NoteSV* ListSinhVien;
 void Nhap_SV(ListSinhVien &lsv);
 void Xuat_SV(ListSinhVien lsv);
 
+void ShowByClass_SV(ListSinhVien lsv);
+
 

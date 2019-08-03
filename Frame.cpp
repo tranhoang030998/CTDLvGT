@@ -113,3 +113,13 @@ void ShowListSVFrame(POINT p)
 	gotoxy(p.x, p.y + 4); cout << "|   Ma SV    |       Ho      |    Ten    |  Ma Lop   | Gioi Tinh |         SDT       |  Nam NH |\n";
 	gotoxy(p.x, p.y + 5); cout << "|----------------------------------------------------------------------------------------------|";
 }
+
+void EnterClassCodeFrame(POINT p) // x = 14
+{
+	gotoxy(p.x, p.y + 1); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                    Nhap Ma Lop                |\n";
+	gotoxy(p.x, p.y + 3); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout << "|             ___________________________       |";
+	gotoxy(p.x, p.y + 5); cout << "| Ma Lop     |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout << "|-----------------------------------------------|";
+}

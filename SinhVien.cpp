@@ -270,3 +270,53 @@ void Xuat_SV(ListSinhVien lsv)
 		i++;
 	}
 }
+
+void ShowByClass_SV(ListSinhVien lsv)
+{
+	POINT lc = { 10, 10 };
+	
+
+	while (true)
+	{
+		char classCode[11];
+		bool isExist = false;
+		strcpy_s(classCode, "\0");
+
+		EnterClassCodeFrame(lc);
+
+		EntryData(classCode, { lc.x + 14, lc.y + 5 }, eModeImportData::UPPER_NUMBER, 10);
+
+		if (strcmp(classCode, ""))
+			return;
+
+		int i = 0;
+		for (NoteSV *p = lsv; p != NULL; p = p->next)
+		{
+			if (strcmp(p->sinhvien.MALOP, classCode) == 0)
+			{
+				gotoxy(lc.x, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.MASV;
+				gotoxy(lc.x + 13, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.Ho;
+				gotoxy(lc.x + 29, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.Ten;
+				gotoxy(lc.x + 41, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.MALOP;
+				gotoxy(lc.x + 53, lc.y + 6 + i * 2); cout << "| " << (p->sinhvien.Phai == true ? "Nam" : "Nu");
+				gotoxy(lc.x + 65, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.SDT;
+				gotoxy(lc.x + 85, lc.y + 6 + i * 2); cout << "| " << p->sinhvien.NamNhapHoc;
+				gotoxy(lc.x + 95, lc.y + 6 + i * 2); cout << "|";
+				gotoxy(lc.x, lc.y + 6 + i * 2 + 1); cout << "|----------------------------------------------------------------------------------------------|";
+				i++;
+				isExist = true;
+			}
+		}
+
+		if (!isExist)
+		{
+			Alert("Ma lop Khong ton tai!", { lc.x,lc.y - 5 }, ColorCode_Red, 2, ColorCode_White);
+		}
+		else
+		{
+			ShowListSVFrame(lc);
+			_getch();
+			return;
+		}
+	}
+}
