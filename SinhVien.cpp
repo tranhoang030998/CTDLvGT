@@ -163,34 +163,6 @@ void InsertSV(ListSinhVien &lsv, NoteSV *data)
 			}
 		}
 	}
-
-	for (NoteSV *p = lsv; p->next != NULL; p = p->next)
-	{
-		int resultCompare = strcmp(data->sinhvien.MALOP, p->next->sinhvien.MALOP);
-		if ( resultCompare > 0)
-		{
-			if (p->next == NULL)
-			{
-				InsertTail_SV(lsv, data);
-				return;
-			}
-		}
-		else if (resultCompare == 0)
-		{
-			if (p->next == NULL)
-			{
-				if (strcmp(data->sinhvien.MASV, p->sinhvien.MASV) >= 0)
-				{
-					InsertTail_SV(lsv, data);
-					return;
-				}
-				else
-				{
-
-				}
-			}
-		}
-	}
 }
 
 void Nhap_SV(ListSinhVien &lsv)
@@ -286,7 +258,7 @@ void ShowByClass_SV(ListSinhVien lsv)
 
 		EntryData(classCode, { lc.x + 14, lc.y + 5 }, eModeImportData::UPPER_NUMBER, 10);
 
-		if (strcmp(classCode, ""))
+		if (strcmp(classCode, "") == 0)
 			return;
 
 		int i = 0;
@@ -310,13 +282,69 @@ void ShowByClass_SV(ListSinhVien lsv)
 
 		if (!isExist)
 		{
-			Alert("Ma lop Khong ton tai!", { lc.x,lc.y - 5 }, ColorCode_Red, 2, ColorCode_White);
+			Alert("Ma lop Khong ton tai!", { lc.x,lc.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
 		}
 		else
 		{
+			
 			ShowListSVFrame(lc);
 			_getch();
 			return;
 		}
 	}
+}
+
+void DeleteLSV(ListSinhVien &lsv)
+{
+	for (NoteSV *p = lsv; p != NULL;)
+	{
+		NoteSV *temp = p;
+		p = p->next;
+		delete temp;
+	}
+}
+
+void LuuFile_LSV(ListSinhVien lsv)
+{
+	fstream FileOut("DSSINHVIEN.TXT", ios::out);
+
+	int index = 0;
+	for (NoteSV *p = lsv; p != NULL; p = p->next)
+	{
+		if (index++ != 0)
+			FileOut << endl;
+		FileOut << p->sinhvien.MASV << endl
+			<< p->sinhvien.MALOP << endl
+			<< p->sinhvien.Ho << endl
+			<< p->sinhvien.Ten << endl
+			<< p->sinhvien.Phai << endl
+			<< p->sinhvien.SDT << endl
+			<< p->sinhvien.NamNhapHoc;
+	}
+	FileOut.close();
+}
+
+void DocFile_LSV(ListSinhVien &lsv)
+{
+	fstream FileIn("DSSINHVIEN.TXT", ios::in);
+ 
+	if (CountSV(lsv) != 0)
+		DeleteLSV(lsv);
+
+	NoteSV *val;
+	while (!FileIn.eof())
+	{
+		val = new NoteSV;
+
+		FileIn >> val->sinhvien.MASV
+			>> val->sinhvien.MALOP
+			>> val->sinhvien.Ho
+			>> val->sinhvien.Ten
+			>> val->sinhvien.Phai
+			>> val->sinhvien.SDT
+			>> val->sinhvien.NamNhapHoc;
+		InsertSV(lsv, val);
+	}
+
+	FileIn.close();
 }

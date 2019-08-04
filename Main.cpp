@@ -38,9 +38,15 @@ int main()
 	/*DocFile_DSDK(lltc);*/
 
 	ListSinhVien lsv = NULL;
-	Nhap_SV(lsv);
+	/*Nhap_SV(lsv);
 
-	Xuat_SV(lsv);
+	Xuat_SV(lsv);*/
+
+	//LuuFile_LSV(lsv);
+
+	DocFile_LSV(lsv);
+	
+	ShowByClass_SV(lsv);
 	
 	gotoxy(40, 40);
 	system("pause");
