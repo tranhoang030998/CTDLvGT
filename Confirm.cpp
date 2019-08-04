@@ -1,4 +1,4 @@
-#include "Confirm.h"
+﻿#include "Confirm.h"
 
 bool checkMode(eModeImportData mode, int key)
 {
@@ -323,3 +323,67 @@ char* EntryData(char *text, POINT lc, eModeImportData mode, int maxLength) // TE
 	}
 	return text;
 }
+
+void drawBox(POINT lcDisplay, SIZE size, char *caption)
+{
+	POINT LCtemp = lcDisplay;
+	for (int i = 0; i < size.cy; i++)
+	{
+		for (int j = 0; j < size.cx; j++)
+		{
+			if (i == 0 || j == 0 || i == size.cy - 1 || j == size.cx - 1)
+			{
+				gotoxy(lcDisplay.x, lcDisplay.y);
+				if (i == 0 && j == 0)
+				{
+					std::cout << (char)201;  // ╔
+				}
+				else if (i == 0 && j == size.cx - 1)
+				{
+					std::cout << (char)187; // ╗
+				}
+				else if (i == size.cy - 1 && j == 0)
+				{
+					std::cout << (char)200; // ╚
+				}
+				else if (i == size.cy - 1 && j == size.cx - 1)
+				{
+					std::cout << (char)188; // ╝
+				}
+				else if (i == 0 || i == size.cy - 1)
+				{
+					std::cout << (char)205; // ═
+				}
+				else if (j == 0 || j == size.cx - 1)
+				{
+					std::cout << (char)186;  // ║
+				}
+			}
+			lcDisplay.x++;
+		}
+		lcDisplay.x = LCtemp.x;
+		lcDisplay.y++;
+	}
+
+	if (static_cast<int>(strlen(caption)) + 5 < size.cx)
+	{
+		gotoxy(LCtemp.x + 2, LCtemp.y); std::cout << caption;
+	}
+}
+
+void dis_Clear(POINT lcHeadClear, SIZE size)
+{
+	POINT LCtemp = lcHeadClear;
+	for (int i = 0; i < size.cy; i++)
+	{
+		for (int j = 0; j < size.cx; j++)
+		{
+			gotoxy(lcHeadClear.x, lcHeadClear.y);
+			cout << " ";
+			lcHeadClear.x++;
+		}
+		lcHeadClear.x = LCtemp.x;
+		lcHeadClear.y++;
+	}
+}
+
