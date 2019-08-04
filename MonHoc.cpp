@@ -22,9 +22,9 @@ NoteMH* InsertToTreeByNameSubject(ListMonHoc &root, NoteMH *data)
 	}
 
 	if (strcmp(data->monHoc.TenMH, root->monHoc.TenMH) < 0)
-		root->pLeft = InsertToTreeByCodeJSubject(root->pLeft, data);
+		root->pLeft = InsertToTreeByNameSubject(root->pLeft, data);
 	else if (strcmp(data->monHoc.TenMH, root->monHoc.TenMH) > 0)
-		root->pRight = InsertToTreeByCodeJSubject(root->pRight, data);
+		root->pRight = InsertToTreeByNameSubject(root->pRight, data);
 	return root;
 }
 
@@ -76,7 +76,7 @@ void DocFile_LMH(ListMonHoc &lmh)
 			>> mh->monHoc.STCLT
 			>> mh->monHoc.STCTH;
 
-		InsertToTreeByCodeJSubject(lmh, mh);
+		lmh = InsertToTreeByCodeJSubject(lmh, mh);
 	}
 
 	FileIn.close();
@@ -157,7 +157,8 @@ void LNR_InsertToNewTree(NoteMH *root, ListMonHoc &dsmh)
 	if (root != NULL)
 	{
 		LNR_InsertToNewTree(root->pLeft, dsmh);
-		InsertToTreeByNameSubject(dsmh, root);
+		MonHoc mh = root->monHoc;
+		dsmh = InsertToTreeByNameSubject(dsmh, new NoteMH({ mh, NULL, NULL }));
 		LNR_InsertToNewTree(root->pRight, dsmh);
 	}
 }

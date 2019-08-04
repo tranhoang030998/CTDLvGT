@@ -58,7 +58,9 @@ int main()
 
 	DocFile_LMH(lmh);
 	Xuat_LMH(lmh);
-	//ShowByNameSubjects(lmh);
+
+	_getch();
+	ShowByNameSubjects(lmh);
 	
 	gotoxy(40, 40);
 	system("pause");
