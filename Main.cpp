@@ -64,7 +64,8 @@ int main()
 	ShowByNameSubjects(lmh);*/
 
 	//DangKyHoc(lltc, lsv);
-	NhapDiem(lltc, lsv, lmh, true);
+	//NhapDiem(lltc, lsv, lmh, true);
+	XemBangDiemTBTheoLop(lltc, lsv, lmh);
 	
 	gotoxy(40, 40);
 	system("pause");

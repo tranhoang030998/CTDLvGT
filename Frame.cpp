@@ -213,3 +213,11 @@ void TitleShowScore(POINT p)
 	gotoxy(p.x, p.y + 2); cout << "|                     BANG DIEM MON:                            |";
 	gotoxy(p.x, p.y + 3); cout << "|      Niem Khoa:            Hoc Ky:           Nhom:            |";
 }
+
+void TitleShowScoreByClass(POINT p)
+{
+	gotoxy(p.x, p.y); cout <<     "_________________________________________________________________";
+	gotoxy(p.x, p.y + 1); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|             BANG THONG KE DIEM TRUNG BINH KHOA HOC            |";
+	gotoxy(p.x, p.y + 3); cout << "|          Lop:                        Nam Nhap Hoc:            |";
+}

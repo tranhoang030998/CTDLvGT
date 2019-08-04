@@ -23,6 +23,7 @@ void ThemSinhVien_DSDK(ListLopTinChi &lltc);
 void XoaSinhVien_DSDK(ListLopTinChi &lltc);
 void DangKyHoc(ListLopTinChi &lltc, ListSinhVien lsv);
 void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv, ListMonHoc lmh, bool isShow);
+void XemBangDiemTBTheoLop(ListLopTinChi lltc, ListSinhVien lsv, ListMonHoc lmh);
 
 void LuuFile_DSDK(ListLopTinChi lltc);
 void DocFile_DSDK(ListLopTinChi &lltc);

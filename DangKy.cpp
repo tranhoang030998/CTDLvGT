@@ -515,14 +515,60 @@ void XemBangDiemTBTheoLop(ListLopTinChi lltc, ListSinhVien lsv, ListMonHoc lmh)
 		EnterClassCodeFrame(lc);
 
 		char ml[11] = "\0";
-		EntryData(ml, {}, eModeImportData::UPPER_NUMBER, 9);
+		EntryData(ml, {lc.x +14, lc.y + 5}, eModeImportData::UPPER_NUMBER, 9);
 
+		if (strcmp(ml, "") == 0)
+			return;
+
+		system("cls");
+		TitleShowScoreByClass({ lc.x, lc.y - 3 });
+
+		bool isExist = false;
+		int row = 0;
 		for (NoteSV *nSV = lsv; nSV != NULL; nSV = nSV->next)
 		{
 			if (strcmp(nSV->sinhvien.MALOP, ml) == 0)
 			{
+				int tongSoTinChi = 0;
+				float tongDiem = 0;
+				//TODO: Tinh diem trung binh
+				for (int ltc = 0; ltc < lltc.SoLuong; ltc++)
+				{
+					for (ListDangKy *dk = lltc.ds[ltc]->listSV; dk != NULL; dk = dk->pNext)
+					{
+						if (strcmp(nSV->sinhvien.MASV, dk->ThongTinDangKy.MASV))
+						{
+							NoteMH *nMH = SearchNodeByCodeSubject(lmh, lltc.ds[ltc]->MAMH);
+							tongSoTinChi += (nMH->monHoc.STCLT + nMH->monHoc.STCTH);
+							tongDiem += (dk->ThongTinDangKy.DIEM * (nMH->monHoc.STCLT + nMH->monHoc.STCTH));
+						}
+					}
+				}
+				//TODO:Hien thi thong tin
+				gotoxy(lc.x + 16, lc.y); cout << nSV->sinhvien.MALOP;
+				gotoxy(lc.x + 53, lc.y); cout << nSV->sinhvien.NamNhapHoc;
 
+				gotoxy(lc.x, lc.y + 6 + row * 2); cout << "| " << row + 1;
+				gotoxy(lc.x + 7, lc.y + 6 + row * 2); cout << "| " << nSV->sinhvien.MASV;
+				gotoxy(lc.x + 22, lc.y + 6 + row * 2); cout << "| " << nSV->sinhvien.Ho;
+				gotoxy(lc.x + 37, lc.y + 6 + row * 2); cout << "| " << nSV->sinhvien.Ten;
+				gotoxy(lc.x + 49, lc.y + 6 + row * 2); cout << "| "; printf_s("%2.2f", tongDiem / tongSoTinChi);
+				gotoxy(lc.x + 64, lc.y + 6 + row * 2); cout << "|";
+				gotoxy(lc.x, lc.y + 6 + row * 2 + 1); cout << "|---------------------------------------------------------------|";
+				row++;
+				isExist = true;
 			}
+		}
+		if (isExist)
+		{
+			EnterInfoScoreFrame(lc);
+			_getch();
+			break;
+		}
+		else
+		{
+			Alert("Khong ton tai ma lop tuong ung!", { lc.x, lc.y - 5 }, ColorCode_Red, 3000, ColorCode_White);
+			system("cls");
 		}
 	}
 }
