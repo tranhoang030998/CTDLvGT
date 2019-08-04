@@ -2,6 +2,7 @@
 #include "LopTinChi.h"
 #include "Frame.h"
 #include  "SinhVien.h"
+#include "MonHoc.h"
 
 
 enum eShowSVDK { NIEMKHOA };
@@ -21,7 +22,7 @@ void Nhap_DSDK(ListDangKy *&ldk);
 void ThemSinhVien_DSDK(ListLopTinChi &lltc);
 void XoaSinhVien_DSDK(ListLopTinChi &lltc);
 void DangKyHoc(ListLopTinChi &lltc, ListSinhVien lsv);
-void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv);
+void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv, ListMonHoc lmh, bool isShow);
 
 void LuuFile_DSDK(ListLopTinChi lltc);
 void DocFile_DSDK(ListLopTinChi &lltc);

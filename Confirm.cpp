@@ -56,6 +56,12 @@ bool checkMode(eModeImportData mode, int key)
 			return true;
 		return false;
 	}
+	else if (mode == SCORE)
+	{
+		if (key > '0' || key < '9' || key == '.')
+			return true;
+		return false;
+	}
 	return false;
 }
 
@@ -222,7 +228,7 @@ char* EntryData(char *text, POINT lc, eModeImportData mode, int maxLength) // TE
 			char key = _getch();
 			if (key == 13)
 				return "\0";
-			if ((key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') && !isControl)
+			if ((key >= '0' && key <= '9' || key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key == '.') && !isControl)
 			{
 				//cout << "not is  control" << endl;
 				int lengthText = strlen(text);

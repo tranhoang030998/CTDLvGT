@@ -64,7 +64,7 @@ int main()
 	ShowByNameSubjects(lmh);*/
 
 	//DangKyHoc(lltc, lsv);
-	NhapDiem(lltc, lsv);
+	NhapDiem(lltc, lsv, lmh, true);
 	
 	gotoxy(40, 40);
 	system("pause");

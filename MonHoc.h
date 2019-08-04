@@ -27,3 +27,5 @@ void Xoa_MH(ListMonHoc &lmh);
 void Sua_MH(ListMonHoc &lmh);
 
 void ShowByNameSubjects(ListMonHoc lmh);
+
+NoteMH* SearchNodeByCodeSubject(NoteMH* root, char *CodeSubject);

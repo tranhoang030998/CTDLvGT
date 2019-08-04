@@ -15,3 +15,4 @@ void EnterSubjectCodeFrame(POINT p);
 void EnterToRegSubjects(POINT p);
 void EnterScoreFrame(POINT p);
 void EnterInfoScoreFrame(POINT p);
+void TitleShowScore(POINT p);

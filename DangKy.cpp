@@ -370,7 +370,6 @@ void DangKyHoc(ListLopTinChi &lltc, ListSinhVien lsv)
 	}
 }
 
-
 void EnterScore(ListDangKy *&ldk, ListSinhVien lsv, POINT lc)
 {
 	int quantity = Count_LDK(ldk);
@@ -400,10 +399,35 @@ void EnterScore(ListDangKy *&ldk, ListSinhVien lsv, POINT lc)
 	}
 
 	//TODO: EnterScore
+	char score[5];
+	for (int i = 0; i < quantity; i++)
+	{
+		snprintf(score, sizeof score, "%f", arrScore[i]);
+		while (true)
+		{
+			EntryData(score, { lc.x + 51, arrLC[i] }, eModeImportData::SCORE, 4);
+			float s = atof(score);
+			if ((s < 0 || s > 10) || (s == 0 && s != arrScore[i]))
+			{
+				snprintf(score, sizeof score, "%f", arrScore[i]);
+			}
+			else
+			{
+				gotoxy(lc.x + 51, arrLC[i]); printf_s("%2.2f", s);
+				arrScore[i] = s;
+				break;
+			}
+		}
+	}
 
+	index = 0;
+	for (ListDangKy *p = ldk; p != NULL; p = p->pNext)
+	{
+		p->ThongTinDangKy.DIEM = arrScore[index++];
+	}
 }
 
-void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv)
+void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv, ListMonHoc lmh, bool isShow)
 {
 	POINT lc = { 10, 10 };
 	
@@ -441,8 +465,64 @@ void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv)
 		}
 		else
 		{
-			system("cls");
-			EnterScore(lltc.ds[index]->listSV, lsv, lc);
+			if (isShow)
+			{
+				system("cls");
+				int row = 0;
+				EnterInfoScoreFrame(lc);
+				TitleShowScore({ lc.x, lc.y - 3 });
+
+				gotoxy(lc.x + 38, lc.y - 1); cout << SearchNodeByCodeSubject(lmh, lltc.ds[index]->MAMH)->monHoc.TenMH;
+				gotoxy(lc.x + 18, lc.y); cout << lltc.ds[index]->NienKhoa;
+				gotoxy(lc.x + 37, lc.y); cout << lltc.ds[index]->HocKy;
+				gotoxy(lc.x + 53, lc.y); cout << lltc.ds[index]->Nhom;
+
+				for (ListDangKy *p = lltc.ds[index]->listSV; p != NULL; p = p->pNext)
+				{
+					NoteSV* sv = FinStudent(lsv, p->ThongTinDangKy.MASV);
+					if (sv != NULL)
+					{
+						// 0      7              18             33          44             57         
+						//"|  STT |     Ma SV    |      HO      |    Ten    |   Diem       |
+						gotoxy(lc.x,      lc.y + 6 + row * 2); cout << "| " << row + 1;
+						gotoxy(lc.x + 7,  lc.y + 6 + row * 2); cout << "| " << sv->sinhvien.MASV;
+						gotoxy(lc.x + 22, lc.y + 6 + row * 2); cout << "| " << sv->sinhvien.Ho;
+						gotoxy(lc.x + 37, lc.y + 6 + row * 2); cout << "| " << sv->sinhvien.Ten;
+						gotoxy(lc.x + 49, lc.y + 6 + row * 2); cout << "| " << p->ThongTinDangKy.DIEM;
+						gotoxy(lc.x + 64, lc.y + 6 + row * 2); cout << "|";
+						gotoxy(lc.x,      lc.y + 6 + row * 2 + 1); cout << "|---------------------------------------------------------------|";
+						row++;
+					}
+				}
+				_getch();
+				return;
+			}
+			else
+			{
+				system("cls");
+				EnterScore(lltc.ds[index]->listSV, lsv, lc);
+				return;
+			}
+		}
+	}
+}
+
+void XemBangDiemTBTheoLop(ListLopTinChi lltc, ListSinhVien lsv, ListMonHoc lmh)
+{
+	POINT lc = { 10, 10 };
+	while (true)
+	{
+		EnterClassCodeFrame(lc);
+
+		char ml[11] = "\0";
+		EntryData(ml, {}, eModeImportData::UPPER_NUMBER, 9);
+
+		for (NoteSV *nSV = lsv; nSV != NULL; nSV = nSV->next)
+		{
+			if (strcmp(nSV->sinhvien.MALOP, ml) == 0)
+			{
+
+			}
 		}
 	}
 }

@@ -205,3 +205,11 @@ void EnterInfoScoreFrame(POINT p)
 	gotoxy(p.x, p.y + 4); cout << "|  STT |     Ma SV    |      HO      |    Ten    |   Diem       |\n";
 	gotoxy(p.x, p.y + 5); cout << "|---------------------------------------------------------------|";
 }
+
+void TitleShowScore(POINT p)
+{
+	gotoxy(p.x, p.y); cout <<     "_________________________________________________________________";
+	gotoxy(p.x, p.y + 1); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                     BANG DIEM MON:                            |";
+	gotoxy(p.x, p.y + 3); cout << "|      Niem Khoa:            Hoc Ky:           Nhom:            |";
+}
