@@ -4,6 +4,7 @@
 #include "LopTinChi.h"
 #include "DangKy.h"
 #include "SinhVien.h"
+#include "MonHoc.h"
 
 int main()
 {
@@ -37,16 +38,27 @@ int main()
 
 	/*DocFile_DSDK(lltc);*/
 
-	ListSinhVien lsv = NULL;
+	//ListSinhVien lsv = NULL;
 	/*Nhap_SV(lsv);
 
 	Xuat_SV(lsv);*/
 
 	//LuuFile_LSV(lsv);
 
-	DocFile_LSV(lsv);
+	/*DocFile_LSV(lsv);
 	
-	ShowByClass_SV(lsv);
+	ShowByClass_SV(lsv);*/
+
+	ListMonHoc lmh = NULL;
+	/*Nhap_LMH(lmh);
+	Xuat_LMH(lmh);*/
+
+	//LuuFile_LMH(lmh);
+	system("cls");
+
+	DocFile_LMH(lmh);
+	Xuat_LMH(lmh);
+	//ShowByNameSubjects(lmh);
 	
 	gotoxy(40, 40);
 	system("pause");

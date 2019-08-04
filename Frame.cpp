@@ -123,3 +123,46 @@ void EnterClassCodeFrame(POINT p) // x = 14
 	gotoxy(p.x, p.y + 5); cout << "| Ma Lop     |                           |      |\n";
 	gotoxy(p.x, p.y + 6); cout << "|-----------------------------------------------|";
 }
+
+void EnterSubjectsFrame(POINT p)
+{
+	gotoxy(p.x, p.y + 1); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout <<  "|                    Thong Tin Mon Hoc               |\n";
+	gotoxy(p.x, p.y + 3); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 5); cout <<  "| Ma Mon Hoc      |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 7); cout <<  "| Ten Mon Hoc     |                           |      |\n";
+	gotoxy(p.x, p.y + 8); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 9); cout <<  "| So Tin Chi LT   |                           |      |\n";
+	gotoxy(p.x, p.y + 10); cout << "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 11); cout << "| So Tin Chi TH   |                           |      |\n";
+	gotoxy(p.x, p.y + 12); cout << "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 13); cout << "|              Ban co muon nhap tiep khong?          |\n";
+	gotoxy(p.x, p.y + 14); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 15); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 16); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 17); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 18); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 19); cout << "|                                                    |\n";
+	gotoxy(p.x, p.y + 20); cout << "|----------------------------------------------------|\n";
+}
+
+void ShowListSubjectFrame(POINT p)
+{
+	gotoxy(p.x, p.y + 1); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                      Danh Sach Mon Hoc                        |\n";
+	gotoxy(p.x, p.y + 3); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout << "| Ma Mon Hoc |    Ten Mon Hoc   | STC Thuc Hanh | STC Ly Thuyet |\n";
+	gotoxy(p.x, p.y + 5); cout << "|---------------------------------------------------------------|";
+}
+
+void EnterSubjectCodeFrame(POINT p) // x = 14
+{
+	gotoxy(p.x, p.y + 1); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                  Nhap Ma Mon Hoc              |\n";
+	gotoxy(p.x, p.y + 3); cout << "|-----------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout << "|             ___________________________       |";
+	gotoxy(p.x, p.y + 5); cout << "| Ma Mon Hoc |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout << "|-----------------------------------------------|";
+}

@@ -9,3 +9,6 @@ void EnterMaSVFrame(POINT p);
 void EnterSVFrame(POINT p);
 void ShowListSVFrame(POINT p);
 void EnterClassCodeFrame(POINT p);
+void ShowListSubjectFrame(POINT p);
+void EnterSubjectsFrame(POINT p);
+void EnterSubjectCodeFrame(POINT p);
