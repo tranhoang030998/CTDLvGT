@@ -166,3 +166,42 @@ void EnterSubjectCodeFrame(POINT p) // x = 14
 	gotoxy(p.x, p.y + 5); cout << "| Ma Mon Hoc |                           |      |\n";
 	gotoxy(p.x, p.y + 6); cout << "|-----------------------------------------------|";
 }
+
+void EnterToRegSubjects(POINT p)
+{
+	gotoxy(p.x, p.y + 1); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout <<  "|                     Thong Tin SV DK                |\n";
+	gotoxy(p.x, p.y + 3); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 5); cout <<  "| Ma sinh Vien    |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 7); cout <<  "| Niem Khoa       |                           |      |\n";
+	gotoxy(p.x, p.y + 8); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 9); cout <<  "| Hoc Ky          |                           |      |\n";
+	gotoxy(p.x, p.y + 10); cout << "|----------------------------------------------------|\n";
+}
+
+void EnterScoreFrame(POINT p)
+{
+	gotoxy(p.x, p.y + 1); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout <<  "|                        Thong Tin                   |\n";
+	gotoxy(p.x, p.y + 3); cout <<  "|----------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 5); cout <<  "| Ma Mon Hoc      |                           |      |\n";
+	gotoxy(p.x, p.y + 6); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 7); cout <<  "| Niem Khoa       |                           |      |\n";
+	gotoxy(p.x, p.y + 8); cout <<  "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 9); cout <<  "| Hoc Ky          |                           |      |\n";
+	gotoxy(p.x, p.y + 10); cout << "|                  ___________________________       |\n";
+	gotoxy(p.x, p.y + 11); cout << "| Nhom            |                           |      |\n";
+	gotoxy(p.x, p.y + 12); cout << "|----------------------------------------------------|\n";
+}
+
+void EnterInfoScoreFrame(POINT p)
+{
+	gotoxy(p.x, p.y + 1); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 2); cout << "|                           Danh Sach                           |\n";
+	gotoxy(p.x, p.y + 3); cout << "|---------------------------------------------------------------|\n";
+	gotoxy(p.x, p.y + 4); cout << "|  STT |     Ma SV    |      HO      |    Ten    |   Diem       |\n";
+	gotoxy(p.x, p.y + 5); cout << "|---------------------------------------------------------------|";
+}

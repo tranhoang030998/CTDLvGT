@@ -12,3 +12,6 @@ void EnterClassCodeFrame(POINT p);
 void ShowListSubjectFrame(POINT p);
 void EnterSubjectsFrame(POINT p);
 void EnterSubjectCodeFrame(POINT p);
+void EnterToRegSubjects(POINT p);
+void EnterScoreFrame(POINT p);
+void EnterInfoScoreFrame(POINT p);

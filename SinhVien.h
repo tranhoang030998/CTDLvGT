@@ -6,7 +6,7 @@
 using namespace std;
 struct SinhVien {
 	char MASV[13];
-	char Ho[9];
+	char Ho[21];
 	char Ten[10];
 	bool Phai;
 	char SDT[11];
@@ -23,6 +23,8 @@ void Nhap_SV(ListSinhVien &lsv);
 void Xuat_SV(ListSinhVien lsv);
 
 void ShowByClass_SV(ListSinhVien lsv);
+
+NoteSV* FinStudent(ListSinhVien lsv, char* studentCode);
 
 void LuuFile_LSV(ListSinhVien lsv);
 void DocFile_LSV(ListSinhVien &lsv);

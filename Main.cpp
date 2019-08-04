@@ -9,18 +9,18 @@
 int main()
 {
 	
-	/*ListLopTinChi lltc;
-	Initial_LLTC(lltc);*/
+	ListLopTinChi lltc;
+	Initial_LLTC(lltc);
 	/*Nhap_LLTC(lltc);
 
 	LuuFile_LLTC(lltc);*/
 
-	/*DocFile_LLTC(lltc);
+	DocFile_LLTC(lltc);
 
 	system("cls");
-	Xuat_LLTC(lltc);
+	//Xuat_LLTC(lltc);
 
-	system("cls");*/
+	//system("cls");
 	//Them_LLTC(lltc);
 	//Xoa_LLTC(lltc);
 	//Sua_LLTC(lltc);
@@ -36,18 +36,19 @@ int main()
 
 	LuuFile_DSDK(lltc);*/
 
-	/*DocFile_DSDK(lltc);*/
+	DocFile_DSDK(lltc);
 
-	//ListSinhVien lsv = NULL;
+	ListSinhVien lsv = NULL;
 	/*Nhap_SV(lsv);
 
-	Xuat_SV(lsv);*/
+	Xuat_SV(lsv);
 
-	//LuuFile_LSV(lsv);
+	LuuFile_LSV(lsv);*/
 
-	/*DocFile_LSV(lsv);
+	DocFile_LSV(lsv);
 	
-	ShowByClass_SV(lsv);*/
+	//Xuat_SV(lsv);
+	//ShowByClass_SV(lsv);
 
 	ListMonHoc lmh = NULL;
 	/*Nhap_LMH(lmh);
@@ -57,10 +58,13 @@ int main()
 	system("cls");
 
 	DocFile_LMH(lmh);
-	Xuat_LMH(lmh);
+	//Xuat_LMH(lmh);
 
-	_getch();
-	ShowByNameSubjects(lmh);
+	/*_getch();
+	ShowByNameSubjects(lmh);*/
+
+	//DangKyHoc(lltc, lsv);
+	NhapDiem(lltc, lsv);
 	
 	gotoxy(40, 40);
 	system("pause");

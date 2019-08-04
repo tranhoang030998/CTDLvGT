@@ -274,3 +274,175 @@ void Xuat_DSDK(ListLopTinChi lltc, eShowSVDK e)
 {
 
 }
+
+void DangKyHoc(ListLopTinChi &lltc, ListSinhVien lsv)
+{
+	POINT lc = { 10, 10 };
+	ListLopTinChi avaliableClass;
+	while (true)
+	{
+		EnterToRegSubjects(lc);
+		char msv[15], nk[11], hk[11];
+		strcpy_s(msv, "\0");
+		strcpy_s(nk, "\0");
+		strcpy_s(hk, "\0");
+		while (true)
+		{
+			EntryData(msv, { lc.x + 20, lc.y + 5 }, eModeImportData::UPPER_NUMBER, 12);
+			if (strcmp(msv, "") == 0)
+				break;
+			bool isExists = false;
+			for (NoteSV *p = lsv; p != NULL; p = p->next)
+			{
+				if (strcmp(p->sinhvien.MASV, msv) == 0)
+				{
+					isExists = true;
+					break;
+				}
+			}
+			if (isExists)
+			{
+				break;
+			}
+			Alert("Sinh Vien khong ton tai.....", { lc.x, lc.y - 3 }, ColorCode_Red, 3000, ColorCode_White);
+			strcpy_s(msv, "\0");
+		}
+		EntryData(nk, { lc.x + 20, lc.y + 7 }, eModeImportData::NUMBER, 4);
+		EntryData(hk, { lc.x + 20, lc.y + 9 }, eModeImportData::NUMBER, 2);
+
+		if (strcmp(msv, "") == 0 || strcmp(nk, "") == 0 || strcmp(hk, "") == 0)
+			return;
+
+		for (int i = 0; i < lltc.SoLuong; i++)
+		{
+			if (atoi(nk) == lltc.ds[i]->NienKhoa && atoi(hk) == lltc.ds[i]->HocKy)
+			{
+				avaliableClass.ds[avaliableClass.SoLuong] = new LopTinChi;
+
+				avaliableClass.ds[avaliableClass.SoLuong++] = lltc.ds[i];
+			}
+		}
+
+		if (avaliableClass.SoLuong == 0)
+		{
+			Alert("Khong ton tai lop nao phu hop.....", { lc.x, lc.y - 5 }, ColorCode_Red, 3000, ColorCode_White);
+		}
+		else
+		{
+			while (true)
+			{
+				system("cls");
+				Xuat_LLTC(avaliableClass);
+				EnterClassCodeFrame({ lc.x, lc.y - 10 });
+
+				char ml[5];
+				strcpy_s(ml, "\0");
+				EntryData(ml, { lc.x + 14, lc.y + -5 }, eModeImportData::NUMBER, 4);
+
+				if (strcmp(ml, "") == 0)
+					return;
+
+				for (int i = 0; i < avaliableClass.SoLuong; i++)
+				{
+					if (avaliableClass.ds[i]->MALOPTC == atoi(ml))
+					{
+						for (ListDangKy *p = avaliableClass.ds[i]->listSV; p != NULL; p = p->pNext)
+						{
+							if (strcmp(p->ThongTinDangKy.MASV, msv) == 0)
+							{
+								Alert("Sinh vien da dang ky lop nay.....", { lc.x, lc.y - 3 }, ColorCode_Red, 3000, ColorCode_White);
+								return;
+							}
+						}
+						ListDangKy *data = new ListDangKy;
+						data->pNext = NULL;
+						data->ThongTinDangKy.DIEM = 0;
+						strcpy_s(data->ThongTinDangKy.MASV, msv);
+						InsertToListDK(avaliableClass.ds[i]->listSV, data);
+						//Done
+						Alert("Sinh vien da dang ky thanh cong.....", { lc.x, lc.y - 3 }, ColorCode_Red, 3000, ColorCode_White);
+						return;
+					}
+				}
+				Alert("Ma lop khong ton tai.....", { lc.x, lc.y - 3 }, ColorCode_Red, 3000, ColorCode_White);
+			}
+		}
+	}
+}
+
+
+void EnterScore(ListDangKy *&ldk, ListSinhVien lsv, POINT lc)
+{
+	int quantity = Count_LDK(ldk);
+	float arrScore[1000] = {0};
+	int arrLC[1000] = { 0 };
+
+	EnterInfoScoreFrame(lc);
+
+	int index = 0;
+	for (ListDangKy *p = ldk; p != NULL; p = p->pNext)
+	{
+		NoteSV* sv = FinStudent(lsv, p->ThongTinDangKy.MASV);
+		if (sv != NULL)
+		{
+			// 0      7              18             33          44             57         
+			//"|  STT |     Ma SV    |      HO      |    Ten    |   Diem       |
+			gotoxy(lc.x,      lc.y + 6 + index * 2); cout << "| " << index + 1;
+			gotoxy(lc.x + 7,  lc.y + 6 + index * 2); cout << "| " << sv->sinhvien.MASV;
+			gotoxy(lc.x + 22, lc.y + 6 + index * 2); cout << "| " << sv->sinhvien.Ho;
+			gotoxy(lc.x + 37, lc.y + 6 + index * 2); cout << "| " << sv->sinhvien.Ten;
+			gotoxy(lc.x + 49, lc.y + 6 + index * 2); cout << "| " << p->ThongTinDangKy.DIEM;
+			gotoxy(lc.x + 64, lc.y + 6 + index * 2); cout << "|";
+			gotoxy(lc.x,      lc.y + 6 + index * 2 + 1); cout << "|---------------------------------------------------------------|";
+			arrScore[index] = p->ThongTinDangKy.DIEM;
+			arrLC[index++] =  lc.y + 6 + index * 2;
+		}
+	}
+
+	//TODO: EnterScore
+
+}
+
+void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv)
+{
+	POINT lc = { 10, 10 };
+	
+	while (true)
+	{
+		EnterScoreFrame(lc);
+		char mmh[15], nk[11], hk[11], nhom[2];
+		strcpy_s(mmh, "\0");
+		strcpy_s(nk, "\0");
+		strcpy_s(hk, "\0");
+		strcpy_s(nhom, "\0");
+
+		EntryData(mmh, { lc.x + 20, lc.y + 5 }, eModeImportData::UPPER_NUMBER, 7);
+		EntryData(nk, { lc.x + 20, lc.y + 7 }, eModeImportData::NUMBER, 4);
+		EntryData(hk, { lc.x + 20, lc.y + 9 }, eModeImportData::NUMBER, 2);
+		EntryData(nhom, { lc.x + 20, lc.y + 11 }, eModeImportData::NUMBER, 2);
+
+		if (strcmp(mmh, "") == 0 || strcmp(nk, "") == 0 || strcmp(hk, "") == 0 || strcmp(nhom, "") == 0)
+			return;
+
+		int index = -1;
+
+		for (int i = 0; i < lltc.SoLuong; i++)
+		{
+			if (strcmp(lltc.ds[i]->MAMH, mmh) == 0 && atoi(nk) == lltc.ds[i]->NienKhoa && atoi(hk) == lltc.ds[i]->HocKy && atoi(nhom) == lltc.ds[i]->Nhom)
+			{
+				index = i;
+				break;
+			}
+		}
+
+		if (index == -1)
+		{
+			Alert("Khong ton tai mon nao phu hop.....", { lc.x, lc.y - 5 }, ColorCode_Red, 3000, ColorCode_White);
+		}
+		else
+		{
+			system("cls");
+			EnterScore(lltc.ds[index]->listSV, lsv, lc);
+		}
+	}
+}

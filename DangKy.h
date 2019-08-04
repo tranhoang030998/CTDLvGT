@@ -1,6 +1,7 @@
 #pragma once
 #include "LopTinChi.h"
 #include "Frame.h"
+#include  "SinhVien.h"
 
 
 enum eShowSVDK { NIEMKHOA };
@@ -19,6 +20,8 @@ struct ListDangKy {
 void Nhap_DSDK(ListDangKy *&ldk);
 void ThemSinhVien_DSDK(ListLopTinChi &lltc);
 void XoaSinhVien_DSDK(ListLopTinChi &lltc);
+void DangKyHoc(ListLopTinChi &lltc, ListSinhVien lsv);
+void NhapDiem(ListLopTinChi &lltc, ListSinhVien lsv);
 
 void LuuFile_DSDK(ListLopTinChi lltc);
 void DocFile_DSDK(ListLopTinChi &lltc);

@@ -36,6 +36,20 @@ void InsertFront_SV(ListSinhVien &l_sv, NoteSV *data)
 
 }
 
+NoteSV* FinStudent(ListSinhVien lsv, char* studentCode)
+{
+	if (lsv == NULL)
+		return NULL;
+	for (NoteSV *p = lsv; p != NULL; p = p->next)
+	{
+		if (strcmp(studentCode, p->sinhvien.MASV) == 0)
+		{
+			return p;
+		}
+	}
+	return NULL;
+}
+
 NoteSV* FindClass(ListSinhVien lsv, NoteSV *data)
 {
 	if (lsv == NULL)
@@ -186,7 +200,7 @@ void Nhap_SV(ListSinhVien &lsv)
 
 		EntryData(msv, { p.x + 20, p.y + 5 }, eModeImportData::UPPER_NUMBER, 12);
 		EntryData(ml, { p.x + 20, p.y + 7 }, eModeImportData::UPPER_NUMBER, 10);
-		EntryData(ho, { p.x + 20, p.y + 9 }, eModeImportData::UPPER_LOWER, 10);
+		EntryData(ho, { p.x + 20, p.y + 9 }, eModeImportData::UPPER_LOWER, 20);
 		EntryData(ten, { p.x + 20, p.y + 11 }, eModeImportData::UPPER_LOWER, 11);
 		EntryData(sex, { p.x + 20, p.y + 13 }, eModeImportData::SEX, 1);
 		EntryData(sdt, { p.x + 20, p.y + 15 }, eModeImportData::NUMBER, 10);
