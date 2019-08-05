@@ -7,6 +7,7 @@
 #include "Mylib.h"
 #include "Confirm.h"
 #include "Frame.h"
+#include "MonHoc.h"
 
 
 //Lop tin chi
@@ -32,12 +33,12 @@ void Initial_LLTC(ListLopTinChi &lltc);
 
 bool IsFull(ListLopTinChi lltc);
 
-void Nhap_LLTC(ListLopTinChi &lltc);
+void Nhap_LLTC(ListLopTinChi &lltc, ListMonHoc lmh);
 void Xuat_LLTC(ListLopTinChi lltc);
 
-void Them_LLTC(ListLopTinChi &lltc);
+void Them_LLTC(ListLopTinChi &lltc, ListMonHoc lmh);
 void Xoa_LLTC(ListLopTinChi &lltc);
-void Sua_LLTC(ListLopTinChi &lltc);
+void Sua_LLTC(ListLopTinChi &lltc, ListMonHoc lmh);
 
 void LuuFile_LLTC(ListLopTinChi lltc);
 void DocFile_LLTC(ListLopTinChi &lltc);

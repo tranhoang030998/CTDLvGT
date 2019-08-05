@@ -1,4 +1,5 @@
 #include "LopTinChi.h"
+#include "MonHoc.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ void Initial_LLTC(ListLopTinChi &lltc)
 	}
 }
 
-void Nhap(LopTinChi *ltc, POINT p)
+void Nhap(LopTinChi *&ltc, ListMonHoc lmh ,POINT p)
 {
 	ltc->MALOPTC = ChonMaLopTinChi();
 	char mmh[15], nk[5], hk[11], n[5], max[10], min[10] = "\0";
@@ -40,12 +41,28 @@ void Nhap(LopTinChi *ltc, POINT p)
 	//tao 1 mang k co du lieu.them du lieu vao mang roi dua vao mang chinh
 	EnterLTCFrame(p, false);
 	gotoxy(p.x + 14, p.y + 5); cout << ltc->MALOPTC;
-	strcpy_s(mmh, EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 5));
-	strcpy_s(nk, EntryData(nk, { p.x + 14, p.y + 9 }, eModeImportData::NUMBER, 4));
-	strcpy_s(hk, EntryData(hk, { p.x + 14, p.y + 11 }, eModeImportData::NUMBER, 3));
-	strcpy_s(n, EntryData(n, { p.x + 14, p.y + 13 }, eModeImportData::NUMBER, 2));
-	strcpy_s(max, EntryData(max, { p.x + 14, p.y + 15 }, eModeImportData::NUMBER, 3));
-	strcpy_s(min, EntryData(min, { p.x + 14, p.y + 17 }, eModeImportData::NUMBER, 3));
+	
+	while (true)
+	{
+		EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 7);
+
+		NoteMH *mh = SearchNodeByCodeSubject(lmh, mmh);
+		if (mh != NULL || strcmp(mmh, "") == 0)
+		{
+			if(strcmp(mmh, "") == 0)
+				return;
+			break;
+		}
+		strcpy_s(mmh, "\0");
+		gotoxy(p.x + 14, p.y + 7); cout << "                 ";
+		Alert("Ma mon hoc khong ton tai!", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
+	}
+	
+	EntryData(nk, { p.x + 14, p.y + 9 }, eModeImportData::NUMBER, 4);
+	EntryData(hk, { p.x + 14, p.y + 11 }, eModeImportData::NUMBER, 3);
+	EntryData(n, { p.x + 14, p.y + 13 }, eModeImportData::NUMBER, 2);
+	EntryData(max, { p.x + 14, p.y + 15 }, eModeImportData::NUMBER, 3);
+	EntryData(min, { p.x + 14, p.y + 17 }, eModeImportData::NUMBER, 3);
 
 	strcpy_s(ltc->MAMH, mmh);
 	ltc->NienKhoa = atoi(nk);
@@ -72,14 +89,14 @@ void Xuat(LopTinChi *ltc, POINT p)
 	gotoxy(p.x + 67, p.y); cout << "|";
 }
 
-void Nhap_LLTC(ListLopTinChi& lltc)
+void Nhap_LLTC(ListLopTinChi& lltc, ListMonHoc lmh)
 {
 	int choice = 0;
 	do {
 		LopTinChi ltc;
 		//nhap vao 1 nut
 		lltc.ds[lltc.SoLuong] = new LopTinChi;// tao 1 con tro
-		Nhap(lltc.ds[lltc.SoLuong], {10, 10});
+		Nhap(lltc.ds[lltc.SoLuong], lmh, {10, 10});
 		// dua nut ltc vao lltc
 		lltc.SoLuong += 1;
 		//fflush(stdin);
@@ -100,18 +117,18 @@ void Xuat_LLTC(ListLopTinChi lltc)
 	}
 }
 
-void Them_LLTC(ListLopTinChi& lltc)
+void Them_LLTC(ListLopTinChi& lltc, ListMonHoc lmh)
 {
 	if (IsFull(lltc))
 		return;
 	LopTinChi ltc;
 	//nhap vao 1 nut
 	lltc.ds[lltc.SoLuong] = new LopTinChi;
-	Nhap(lltc.ds[lltc.SoLuong++], {7, 7});
+	Nhap(lltc.ds[lltc.SoLuong++], lmh,{7, 7});
 	Alert("Da mo them lop tin chi thanh cong!", {15, 5}, ColorCode_Red, 1000, ColorCode_White);
 }
 
-void Sua_LLTC(ListLopTinChi &lltc)
+void Sua_LLTC(ListLopTinChi &lltc, ListMonHoc lmh)
 {
 	if (lltc.SoLuong <= 0)
 		return;
@@ -126,7 +143,8 @@ void Sua_LLTC(ListLopTinChi &lltc)
 		char val[6];
 		strcpy_s(val, "\0");
 		//TODO:Enter code LTC
-		mltc = atoi(EntryData(val, {p.x + 14, p.y + 5}, eModeImportData::NUMBER, 4));
+		EntryData(val, { p.x + 14, p.y + 5 }, eModeImportData::NUMBER, 4);
+		mltc = atoi(val);
 		for (int i = 0; i < lltc.SoLuong; i++)
 		{
 			if (lltc.ds[i]->MALOPTC == mltc)
@@ -140,12 +158,27 @@ void Sua_LLTC(ListLopTinChi &lltc)
 				_itoa_s(lltc.ds[i]->SvMin, min, 10);
 				EnterLTCFrame(p, false);
 				gotoxy(p.x + 14, p.y + 5); cout << lltc.ds[i]->MALOPTC;
-				strcpy_s(mmh, EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 5));
-				strcpy_s(nk, EntryData(nk, { p.x + 14, p.y + 9 }, eModeImportData::NUMBER, 4));
-				strcpy_s(hk, EntryData(hk, { p.x + 14, p.y + 11 }, eModeImportData::NUMBER, 3));
-				strcpy_s(n, EntryData(n, { p.x + 14, p.y + 13 }, eModeImportData::NUMBER, 2));
-				strcpy_s(max, EntryData(max, { p.x + 14, p.y + 15 }, eModeImportData::NUMBER, 3));
-				strcpy_s(min, EntryData(min, { p.x + 14, p.y + 17 }, eModeImportData::NUMBER, 3));
+				while (true)
+				{
+					EntryData(mmh, { p.x + 14, p.y + 7 }, eModeImportData::UPPER_NUMBER, 7);
+
+					NoteMH *mh = SearchNodeByCodeSubject(lmh, mmh);
+					if (mh != NULL || strcmp(mmh, "") == 0)
+					{
+						if (strcmp(mmh, "") == 0)
+							return;
+						break;
+					}
+					strcpy_s(mmh, "\0");
+					gotoxy(p.x + 14, p.y + 7); cout << "                 ";
+					Alert("Ma mon hoc khong ton tai!", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
+				}
+
+				EntryData(nk, { p.x + 14, p.y + 9 }, eModeImportData::NUMBER, 4);
+				EntryData(hk, { p.x + 14, p.y + 11 }, eModeImportData::NUMBER, 3);
+				EntryData(n, { p.x + 14, p.y + 13 }, eModeImportData::NUMBER, 2);
+				EntryData(max, { p.x + 14, p.y + 15 }, eModeImportData::NUMBER, 3);
+				EntryData(min, { p.x + 14, p.y + 17 }, eModeImportData::NUMBER, 3);
 
 				strcpy_s(lltc.ds[i]->MAMH, mmh);
 				lltc.ds[i]->NienKhoa = atoi(nk);
@@ -182,7 +215,8 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 		char val[6];
 		strcpy_s(val, "\0");
 		//nhap ma LTC
-		mltc = atoi(EntryData(val, {p.x + 14, p.y + 5}, eModeImportData::NUMBER, 4));
+		EntryData(val, { p.x + 14, p.y + 5 }, eModeImportData::NUMBER, 4);
+		mltc = atoi(val);
 		for (int i = 0; i < lltc.SoLuong; i++)
 		{
 			if (lltc.ds[i]->MALOPTC == mltc)

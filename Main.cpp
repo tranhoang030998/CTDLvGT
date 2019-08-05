@@ -9,13 +9,13 @@ int main()
 {
 	::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 
-	//ListLopTinChi lltc;
-	//Initial_LLTC(lltc);
+	ListLopTinChi lltc;
+	Initial_LLTC(lltc);
 	///*Nhap_LLTC(lltc);
 
 	//LuuFile_LLTC(lltc);*/
 
-	//DocFile_LLTC(lltc);
+	DocFile_LLTC(lltc);
 
 	//system("cls");
 	////Xuat_LLTC(lltc);
@@ -36,38 +36,38 @@ int main()
 
 	//LuuFile_DSDK(lltc);*/
 
-	//DocFile_DSDK(lltc);
+	DocFile_DSDK(lltc);
 
-	//ListSinhVien lsv = NULL;
+	ListSinhVien lsv = NULL;
 	///*Nhap_SV(lsv);
 
 	//Xuat_SV(lsv);
 
 	//LuuFile_LSV(lsv);*/
 
-	//DocFile_LSV(lsv);
+	DocFile_LSV(lsv);
 	//
 	////Xuat_SV(lsv);
 	////ShowByClass_SV(lsv);
 
-	//ListMonHoc lmh = NULL;
+	ListMonHoc lmh = NULL;
 	///*Nhap_LMH(lmh);
 	//Xuat_LMH(lmh);*/
 
 	////LuuFile_LMH(lmh);
 	//system("cls");
 
-	//DocFile_LMH(lmh);
+	DocFile_LMH(lmh);
 	////Xuat_LMH(lmh);
 
 	///*_getch();
 	//ShowByNameSubjects(lmh);*/
 
-	////DangKyHoc(lltc, lsv);
-	////NhapDiem(lltc, lsv, lmh, true);
-	//XemBangDiemTBTheoLop(lltc, lsv, lmh);
+	DangKyHoc(lltc, lsv);
+	//NhapDiem(lltc, lsv, lmh, true);
+	XemBangDiemTBTheoLop(lltc, lsv, lmh);
 
-	menu_Show();
+	//menu_Show();
 	
 	gotoxy(40, 40);
 	system("pause");

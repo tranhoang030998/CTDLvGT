@@ -330,23 +330,27 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 		}
 
 	}
-	else if (index == 2) // Mon Hoc
+	else if (index == 2) // lOP TIN CHI
 	{
-		SIZE sBtnEdit, sBtnView, sClear;
-		POINT lBtnEdit, lBtnView, lClear;
+		SIZE sCreate, sShow, sShowByDay, sClear, sTenDay;
+		POINT lCreate, lShow, lShowByDay, lClear, lTenDay;
 		int space = 0;
 
-		sBtnEdit = sBtnView = { 15, 5 };
-		lBtnEdit = { lcBtnHead.x, lcBtnHead.y + 5 + space };
-		lBtnView = { lcBtnHead.x, lBtnEdit.y + sBtnEdit.cy + space };
-		lClear = { lcBtnHead.x, lcBtnHead.y + 5 };
-		sClear = { sBtnView.cx, (lBtnView.y + sBtnView.cy) - lClear.y };
+		sCreate = sShow = sShowByDay = sTenDay = { 15, 5 };
+		lCreate = { lcBtnHead.x, lcBtnHead.y + 5 + space };
+		lShow = { lCreate.x, lCreate.y + sCreate.cy + space };
+		lShowByDay = { lShow.x, lShow.y + sShow.cy + space };
+		lTenDay = { lShowByDay.x, lShowByDay.y + sShowByDay.cy + space };
 
+		lClear = { lCreate.x, lCreate.y };
+		sClear = { sCreate.cx, (lTenDay.y + sTenDay.cy) - lClear.y };
 
-		Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-		Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+		Button(true, "Mo Lop", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+		Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
 
-		int maxBTN = 2;
+		int maxBTN = 4;
 		int index = 0;
 		bool isControl = false;
 		while (true)
@@ -381,13 +385,23 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index >= maxBTN)
 						{
 							index = 0;
-							Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
-							Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Mo Lop", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 1)
 						{
-							Button(true, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
-							Button(false, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Mo Lop", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 3)
+						{
+							Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
 						}
 					}
 					else if (key == dir_UP)
@@ -396,13 +410,23 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index < 0)
 						{
 							index = maxBTN - 1;
-							Button(false, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Mo Lop", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(true, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 0)
 						{
-							Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Mo Lop", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
 						}
 					}
 					isControl = false;
@@ -417,19 +441,36 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 					}
 					else if (key == key_ENTER)
 					{
-						if (index == 0) //edit
+						if (index == 0) // them
 						{
 							system("cls");
-							//employees_Edit(le, lcGird);
+							Them_LLTC(lltc, lmh);
 
 							dir = key_SPACE;
 							break;
 						}
-						else if (index == 1) // view
+						else if (index == 1) // xoa
 						{
 							system("cls");
-							//employees_Show(le, lm, lcGird);
+							Xoa_LLTC(lltc);
 
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 2) //sua
+						{
+							system("cls");
+							Sua_LLTC(lltc, lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 3) // in 
+						{
+							system("cls");
+							Xuat_LLTC(lltc);
+
+							_getch();
 							dir = key_SPACE;
 							break;
 						}
