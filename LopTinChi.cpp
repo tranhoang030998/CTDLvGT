@@ -192,7 +192,7 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 				ShowListToDeleteLTCFrame({ p.x, p.y + 8 });
 				Xuat(lltc.ds[i], { p.x, p.y + 14 });
 
-				//hien thi 2 lua chon xoa or k xoa
+				//TODO: Show two button for option delete or not.
 				if (TwoOptionYN({p.x + 10, p.y + 17}) == 1)
 					return;
 
