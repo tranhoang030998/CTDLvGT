@@ -26,6 +26,7 @@
     <ClInclude Include="Confirm.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="LopTinChi.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Mylib.h" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +38,7 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="LopTinChi.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mylib.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

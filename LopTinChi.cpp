@@ -1,5 +1,4 @@
 #include "LopTinChi.h"
-#include <iostream>
 
 using namespace std;
 

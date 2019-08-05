@@ -118,19 +118,27 @@ int Alert(string str, POINT p)
 //Pop up canh bao
 void Alert(string str, POINT p, int color, int sleep, int bgColor)
 {
+	SetColor(color);
+	SetBGColor(bgColor);
 	gotoxy(p.x, p.y);
 	std::cout << "                                        ";
-	SetBGColor(bgColor);
 	gotoxy(p.x, p.y + 1);
 	std::cout << "                                        ";
-	SetColor(color);
 	gotoxy(p.x, p.y + 1);
 	std::cout << str;
-	Sleep(sleep);
+	
 	gotoxy(p.x, p.y + 2);
 	std::cout << "                                        ";
+	Sleep(sleep);
 	SetBGColor(ColorCode_Black);
 	SetColor(ColorCode_White);
+
+	gotoxy(p.x, p.y);
+	std::cout << "                                        ";
+	gotoxy(p.x, p.y + 1);
+	std::cout << "                                        ";
+	gotoxy(p.x, p.y + 2);
+	std::cout << "                                        ";
 }
 
 void drawRectangle(POINT &result, POINT lc, SIZE s, int colorBG, int colorBorder)
@@ -215,7 +223,7 @@ void Button(bool isFocus, char *text, POINT lc, SIZE sizeBTN, int colorFocus, in
 	SetBGColor(ColorCode_Black); // reset;
 }
 
-int TwoOptionYN(POINT p)
+int TwoOptionYN(POINT p) // 0 => yes, 1 => no
 {
 	POINT pY = {p.x, p.y};
 	POINT pN = {p.x + 40, p.y};

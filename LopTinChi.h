@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream> 
 #include <cstring> 
-#include "DangKy.h"
 #include <cstddef>
 #include "Global.h"
 #include "Mylib.h"
@@ -22,6 +21,7 @@ struct LopTinChi {
 	int SvMin;
 
 	struct ListDangKy* listSV = NULL;
+
 };
 struct ListLopTinChi {
 	int SoLuong = 0;
