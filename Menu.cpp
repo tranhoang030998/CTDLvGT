@@ -33,7 +33,7 @@ void drawText(POINT lcDisplay)
 void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSinhVien &lsv, ListMonHoc &lmh)
 {
 	POINT lcGird = { 2, 2 };
-	if (index == 0) // material
+	if (index == 0) // sinhVien
 	{
 		int space = 0;
 		SIZE sBtnShowList, sBtnAdd, sBtnDel, sBtnEdit, sClear;
@@ -47,10 +47,10 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 		lClear = lBtnShowList;
 		sClear = { sBtnShowList.cx, (lBtnEdit.y + sBtnEdit.cy) - lBtnShowList.y };
 
-		Button(true, "Xem Vat Tu", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
+		Button(true, "DS SV", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
 		Button(false, "Them", lBtnAdd, sBtnAdd, ColorCode_Blue, ColorCode_Black);
 		Button(false, "Xoa", lBtnDel, sBtnDel, ColorCode_Blue, ColorCode_Black);
-		Button(false, "Sua", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
+		Button(false, "In All", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
 
 		int maxBTN = 4;
 		int index = 0;
@@ -87,12 +87,12 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index >= maxBTN)
 						{
 							index = 0;
-							Button(false, "Sua", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xem Vat Tu", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In All", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
+							Button(true, "DS SV", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 1)
 						{
-							Button(false, "Xem Vat Tu", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
+							Button(false, "DS SV", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
 							Button(true, "Them", lBtnAdd, sBtnAdd, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 2)
@@ -103,7 +103,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						else if (index == 3)
 						{
 							Button(false, "Xoa", lBtnDel, sBtnDel, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Sua", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In All", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
 						}
 					}
 					else if (key == dir_UP)
@@ -112,13 +112,13 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index < 0)
 						{
 							index = maxBTN - 1;
-							Button(false, "Xem Vat Tu", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Sua", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
+							Button(false, "DS SV", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In All", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 2)
 						{
 							Button(true, "Xoa", lBtnDel, sBtnDel, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Sua", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In All", lBtnEdit, sBtnDel, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 1)
 						{
@@ -127,7 +127,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						}
 						else if (index == 0)
 						{
-							Button(true, "Xem Vat Tu", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
+							Button(true, "DS SV", lBtnShowList, sBtnShowList, ColorCode_Blue, ColorCode_Black);
 							Button(false, "Them", lBtnAdd, sBtnAdd, ColorCode_Blue, ColorCode_Black);
 						}
 					}
@@ -147,7 +147,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index == 0) // view
 						{
 							system("cls");
-							//material_Show(lm, lcGird, 0);
+							ShowByClass_SV(lsv);
 
 							dir = key_SPACE;
 							break;
@@ -155,7 +155,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						else if (index == 1) // add
 						{
 							system("cls");
-							//materials_Add(lm);
+							Them_SV(lsv);
 
 							dir = key_SPACE;
 							break;
@@ -163,15 +163,15 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						else if (index == 2) // remove
 						{
 							system("cls");
-							//materials_Remove(lm);
+							Xoa_SV(lsv);
 
 							dir = key_SPACE;
 							break;
 						}
-						else if (index == 3) // edit
+						else if (index == 3) // view all
 						{
 							system("cls");
-							//materials_Edit(lm);
+							Xuat_SV(lsv);
 
 							dir = key_SPACE;
 							break;
@@ -181,7 +181,156 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 			}
 		}
 	}
-	else if (index == 1) // employees
+	else if (index == 1) // mon Hoc
+	{
+		SIZE sCreate, sShow, sShowByDay, sClear, sTenDay;
+		POINT lCreate, lShow, lShowByDay, lClear, lTenDay;
+		int space = 0;
+
+		sCreate = sShow = sShowByDay = sTenDay = { 15, 5 };
+		lCreate = { lcBtnHead.x, lcBtnHead.y + 5 + space };
+		lShow = { lCreate.x, lCreate.y + sCreate.cy + space };
+		lShowByDay = { lShow.x, lShow.y + sShow.cy + space };
+		lTenDay = { lShowByDay.x, lShowByDay.y + sShowByDay.cy + space };
+
+		lClear = { lCreate.x, lCreate.y };
+		sClear = { sCreate.cx, (lTenDay.y + sTenDay.cy) - lClear.y };
+
+		Button(true, "Them", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+		Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+
+		int maxBTN = 4;
+		int index = 0;
+		bool isControl = false;
+		while (true)
+		{
+			if (_kbhit())
+			{
+				char key = _getch();
+
+				if (key == -32)
+				{
+					isControl = true;
+				}
+				else if (isControl)
+				{
+					if (key == dir_LEFT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_LEFT;
+						break;
+					}
+					else if (key == dir_RIGHT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_RIGHT;
+						break;
+					}
+					else if (key == dir_DOWN)
+					{
+						index++;
+						if (index >= maxBTN)
+						{
+							index = 0;
+							Button(true, "Them", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(false, "Them", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 3)
+						{
+							Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					else if (key == dir_UP)
+					{
+						index--;
+						if (index < 0)
+						{
+							index = maxBTN - 1;
+							Button(false, "Them", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(true, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 0)
+						{
+							Button(true, "Them", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Xoa", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					isControl = false;
+				}
+				else
+				{
+					if (key == key_ESC)
+					{
+						//out
+						dir = key_ESC;
+						break;
+					}
+					else if (key == key_ENTER)
+					{
+						if (index == 0) // them
+						{
+							system("cls");
+							Them_MH(lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 1) // xoa
+						{
+							system("cls");
+							Xoa_MH(lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 2) //sua
+						{
+							system("cls");
+							Sua_MH(lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 3) // in 
+						{
+							system("cls");
+							ShowByNameSubjects(lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+	}
+	else if (index == 2) // Mon Hoc
 	{
 		SIZE sBtnEdit, sBtnView, sClear;
 		POINT lBtnEdit, lBtnView, lClear;
@@ -194,8 +343,8 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 		sClear = { sBtnView.cx, (lBtnView.y + sBtnView.cy) - lClear.y };
 
 
-		Button(true, "Sua", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-		Button(false, "Xem", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+		Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
 
 		int maxBTN = 2;
 		int index = 0;
@@ -232,13 +381,13 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index >= maxBTN)
 						{
 							index = 0;
-							Button(false, "Xem", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Sua", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 1)
 						{
-							Button(true, "Xem", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Sua", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
 						}
 					}
 					else if (key == dir_UP)
@@ -247,13 +396,13 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index < 0)
 						{
 							index = maxBTN - 1;
-							Button(false, "Sua", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xem", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(false, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
 						}
 						else if (index == 0)
 						{
-							Button(true, "Sua", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Xem", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
+							Button(true, "In All", lBtnEdit, sBtnEdit, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Xoa", lBtnView, sBtnView, ColorCode_Blue, ColorCode_Black);
 						}
 					}
 					isControl = false;
@@ -288,155 +437,6 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 				}
 			}
 		}
-	}
-	else if (index == 2) // bill
-	{
-		SIZE sCreate, sShow, sShowByDay, sClear, sTenDay;
-		POINT lCreate, lShow, lShowByDay, lClear, lTenDay;
-		int space = 0;
-
-		sCreate = sShow = sShowByDay = sTenDay = { 15, 5 };
-		lCreate = { lcBtnHead.x, lcBtnHead.y + 5 + space };
-		lShow = { lCreate.x, lCreate.y + sCreate.cy + space };
-		lShowByDay = { lShow.x, lShow.y + sShow.cy + space };
-		lTenDay = { lShowByDay.x, lShowByDay.y + sShowByDay.cy + space };
-
-		lClear = { lCreate.x, lCreate.y };
-		sClear = { sCreate.cx, (lTenDay.y + sTenDay.cy) - lClear.y };
-
-		Button(true, "Tao Hoa Don", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
-		Button(false, "Xem", lShow, sShow, ColorCode_Blue, ColorCode_Black);
-		Button(false, "Xem Theo Ngay", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
-		Button(false, "10 Ngay", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
-
-		int maxBTN = 4;
-		int index = 0;
-		bool isControl = false;
-		while (true)
-		{
-			if (_kbhit())
-			{
-				char key = _getch();
-
-				if (key == -32)
-				{
-					isControl = true;
-				}
-				else if (isControl)
-				{
-					if (key == dir_LEFT)
-					{
-						//del list
-						dis_Clear(lClear, sClear);
-						dir = dir_LEFT;
-						break;
-					}
-					else if (key == dir_RIGHT)
-					{
-						//del list
-						dis_Clear(lClear, sClear);
-						dir = dir_RIGHT;
-						break;
-					}
-					else if (key == dir_DOWN)
-					{
-						index++;
-						if (index >= maxBTN)
-						{
-							index = 0;
-							Button(true, "Tao Hoa Don", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
-							Button(false, "10 Ngay", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 1)
-						{
-							Button(false, "Tao Hoa Don", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xem", lShow, sShow, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 2)
-						{
-							Button(false, "Xem", lShow, sShow, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xem Theo Ngay", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 3)
-						{
-							Button(false, "Xem Theo Ngay", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
-							Button(true, "10 Ngay", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
-						}
-					}
-					else if (key == dir_UP)
-					{
-						index--;
-						if (index < 0)
-						{
-							index = maxBTN - 1;
-							Button(false, "Tao Hoa Don", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
-							Button(true, "10 Ngay", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 2)
-						{
-							Button(false, "10 Ngay", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
-							Button(true, "Xem Theo Ngay", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 1)
-						{
-							Button(true, "Xem", lShow, sShow, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Xem Theo Ngay", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
-						}
-						else if (index == 0)
-						{
-							Button(true, "Tao Hoa Don", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
-							Button(false, "Xem", lShow, sShow, ColorCode_Blue, ColorCode_Black);
-						}
-					}
-					isControl = false;
-				}
-				else
-				{
-					if (key == key_ESC)
-					{
-						//out
-						dir = key_ESC;
-						break;
-					}
-					else if (key == key_ENTER)
-					{
-						if (index == 0) // create
-						{
-							system("cls");
-							//bill_buildBill(lb, le, lm);
-
-							dir = key_SPACE;
-							break;
-						}
-						else if (index == 1) // show
-						{
-							system("cls");
-							//bill_Show(lb, lm, lcGird);
-
-							dir = key_SPACE;
-							break;
-						}
-						else if (index == 2) // show by day
-						{
-							system("cls");
-							//bill_ShowByDate(lb, le, lm);
-
-							dir = key_SPACE;
-							break;
-						}
-						else if (index == 3) // ten day
-						{
-							system("cls");
-							//material_showHeightRevenue(lb, lm);
-
-							dir = key_SPACE;
-							break;
-						}
-					}
-				}
-			}
-		}
-
 	}
 	else if (index == 3)//data
 	{
@@ -527,14 +527,15 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						if (index == 0)//save
 						{
 							system("cls");
-							/*if (messagebox("Ban co muon luu du lieu khong?", YES_NO, POINT()))
+							if (messagebox("Ban co muon luu du lieu khong?", YES_NO, POINT()))
 							{
-								database_SaveMaterial(lm);
-								database_SaveEmployees(le);
-								database_SaveBill(lb);
+								LuuFile_LSV(lsv);
+								LuuFile_LMH(lmh);
+								LuuFile_LLTC(lltc);
+								LuuFile_DSDK(lltc);
 								system("cls");
 								messagebox("Da luu du lieu thanh cong.", YES, POINT());
-							}*/
+							}
 
 							dir = key_SPACE;
 							break;
@@ -543,7 +544,10 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						{
 							system("cls");
 
-							//database_LoadData(lm, le, lb);
+							DocFile_LSV(lsv);
+							DocFile_LMH(lmh);
+							DocFile_LLTC(lltc);
+							DocFile_DSDK(lltc);
 
 							dir = key_SPACE;
 							break;
@@ -568,9 +572,9 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 	lBtnBill = { lBtnEmployees.x + sBtnEmployees.cx + space, lBtnMaterial.y };
 	lBtnData = { lBtnBill.x + sBtnBill.cx + space, lBtnMaterial.y };
 
-	Button(true, "Vat Tu", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
-	Button(false, "Nhan Vien", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
-	Button(false, "Hoa Don", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+	Button(true, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
+	Button(false, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
+	Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 
 	int maxBTN = 4;
@@ -589,25 +593,25 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			//show
 			if (index == 0)
 			{
-				Button(true, "Vat Tu", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
-				Button(false, "Nhan Vien", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnMaterial, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 1)
 			{
-				Button(true, "Nhan Vien", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
-				Button(false, "Hoa Don", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnEmployees, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 2)
 			{
-				Button(true, "Hoa Don", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 				Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnBill, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 3)
 			{
-				Button(false, "Vat Tu", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
 				Button(true, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnData, index, key, lltc, lsv, lmh);
 			}
@@ -622,25 +626,25 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			//show;
 			if (index == 0)
 			{
-				Button(true, "Vat Tu", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
 				Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnMaterial, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 1)
 			{
-				Button(false, "Vat Tu", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
-				Button(true, "Nhan Vien", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnEmployees, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 2)
 			{
-				Button(false, "Nhan Vien", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
-				Button(true, "Hoa Don", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnBill, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 3)
 			{
-				Button(false, "Hoa Don", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 				Button(true, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnData, index, key, lltc, lsv, lmh);
 			}

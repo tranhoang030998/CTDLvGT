@@ -1,4 +1,54 @@
 ﻿#include "Confirm.h"
+				
+void drawRectangle(POINT &result, POINT lc, SIZE s, int colorBG, int colorBorder)
+{
+	POINT LCtemp = lc;
+	for (int i = 0; i < s.cy; i++)
+	{
+		for (int j = 0; j < s.cx; j++)
+		{
+			if (i == 0 || j == 0 || i == s.cy - 1 || j == s.cx - 1)
+			{
+				gotoxy(lc.x, lc.y);
+				if (i == 0 && j == 0)
+				{
+					std::cout << (char)201;  // ╔
+				}
+				else if (i == 0 && j == s.cx - 1)
+				{
+					std::cout << (char)187; // ╗
+				}
+				else if (i == s.cy - 1 && j == 0)
+				{
+					std::cout << (char)200; // ╚
+				}
+				else if (i == s.cy - 1 && j == s.cx - 1)
+				{
+					std::cout << (char)188; // ╝
+				}
+				else if (i == 0 || i == s.cy - 1)
+				{
+					std::cout << (char)205; // ═
+				}
+				else if (j == 0 || j == s.cx - 1)
+				{
+					std::cout << (char)186;  // ║
+				}
+			}
+			else
+			{
+				BGColorText(" ", ColorCode_DarkWhite, colorBG); // set color bg
+			}
+			lc.x++;
+		}
+		lc.x = LCtemp.x;
+		lc.y++;
+	}
+
+
+	result.y = LCtemp.y + (s.cy / 2);
+	result.x = LCtemp.x + 2;
+}
 
 bool checkMode(eModeImportData mode, int key)
 {
@@ -387,3 +437,115 @@ void dis_Clear(POINT lcHeadClear, SIZE size)
 	}
 }
 
+bool messagebox(char *content, int notifyButton, POINT lcDisplay)
+{
+	POINT l;
+	SIZE sizeMessageBox;
+	sizeMessageBox.cy = 15;
+	sizeMessageBox.cx = strlen(content) + 5;
+
+	SIZE sizePerButton;
+	sizePerButton.cy = 5;
+	sizePerButton.cx = 4; // 4 + length;
+
+	int margin_left = 3;
+	int margin_right = 3;
+	int margin_buttom = 2;
+
+	if (notifyButton == YES_NO)
+	{
+		drawRectangle(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
+		gotoxy(lcDisplay.x + 5, lcDisplay.y + 2); BGColorText("Thong Bao", ColorCode_Blue, ColorCode_DarkWhite);
+		gotoxy(lcDisplay.x + 3, lcDisplay.y + 4); BGColorText(content, ColorCode_Blue, ColorCode_DarkWhite);
+
+		int index = 0;
+		POINT lcbtnYES, lcbtnNO;
+		lcbtnYES.x = lcDisplay.x + margin_left;
+		lcbtnYES.y = (lcDisplay.y + sizeMessageBox.cy) - (margin_buttom + sizePerButton.cy);
+		lcbtnNO.x = (lcDisplay.x + sizeMessageBox.cx) - (margin_right + sizePerButton.cx + 3);
+		lcbtnNO.y = (lcDisplay.y + sizeMessageBox.cy) - (margin_buttom + sizePerButton.cy);
+
+		sizePerButton.cx = sizePerButton.cx + strlen("YES");
+
+		Button(true, "YES", lcbtnYES, sizePerButton, ColorCode_Blue, ColorCode_Black);
+		Button(false, "NO", lcbtnNO, sizePerButton, ColorCode_Blue, ColorCode_Black);
+
+		while (true)
+		{
+			if (_kbhit())
+			{
+				int key = _getch();
+
+				if (key == 75) // LEFT
+				{
+					index--;
+					if (index < 0)
+					{
+						index = 1;
+						Button(false, "YES", lcbtnYES, sizePerButton, ColorCode_Blue, ColorCode_Black);
+						Button(true, "NO", lcbtnNO, sizePerButton, ColorCode_Blue, ColorCode_Black);
+					}
+					else
+					{
+						Button(true, "YES", lcbtnYES, sizePerButton, ColorCode_Blue, ColorCode_Black);
+						Button(false, "NO", lcbtnNO, sizePerButton, ColorCode_Blue, ColorCode_Black);
+					}
+
+				}
+				else if (key == 77) // RIGHT
+				{
+					index++;
+					if (index > 1)
+					{
+						index = 0;
+						Button(true, "YES", lcbtnYES, sizePerButton, ColorCode_Blue, ColorCode_Black);
+						Button(false, "NO", lcbtnNO, sizePerButton, ColorCode_Blue, ColorCode_Black);
+					}
+					else
+					{
+						Button(false, "YES", lcbtnYES, sizePerButton, ColorCode_Blue, ColorCode_Black);
+						Button(true, "NO", lcbtnNO, sizePerButton, ColorCode_Blue, ColorCode_Black);
+					}
+				}
+				else if (key == 13)
+				{
+					if (index == 0)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			}
+		}
+	}
+	else if (notifyButton == YES || notifyButton == NO || notifyButton == CANCEL)
+	{
+		char *text = new char[7];
+		strcpy_s(text, 6, notifyButton == YES ? "YES" : (notifyButton == NO ? "NO" : "CANCEL"));
+
+		drawRectangle(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
+		gotoxy(lcDisplay.x + 5, lcDisplay.y + 2); BGColorText("Thong Bao", ColorCode_Blue, ColorCode_DarkWhite);
+		gotoxy(lcDisplay.x + 3, lcDisplay.y + 4); BGColorText(content, ColorCode_Blue, ColorCode_DarkWhite);
+
+		sizePerButton.cx = 4 + strlen("CANCEL");
+
+		POINT lcBTN;
+		lcBTN.x = (lcDisplay.x + (sizeMessageBox.cx / 2)) - (sizePerButton.cx / 2);
+		lcBTN.y = (lcDisplay.y + sizeMessageBox.cy) - (sizePerButton.cy + margin_buttom);
+
+		Button(true, text, lcBTN, sizePerButton, ColorCode_Blue, ColorCode_DarkWhite);
+
+		while (true)
+		{
+			int key = _getch();
+			if (key == 13)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}

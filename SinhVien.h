@@ -25,6 +25,8 @@ void Xuat_SV(ListSinhVien lsv);
 void ShowByClass_SV(ListSinhVien lsv);
 
 NoteSV* FinStudent(ListSinhVien lsv, char* studentCode);
+void Xoa_SV(ListSinhVien &lsv);
+void Them_SV(ListSinhVien &lsv);
 
 void LuuFile_LSV(ListSinhVien lsv);
 void DocFile_LSV(ListSinhVien &lsv);

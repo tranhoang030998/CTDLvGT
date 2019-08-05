@@ -11,3 +11,4 @@ char* char_substr(char *Source, unsigned int lcCut, unsigned int quantity);
 char* EntryData(char *text, POINT lc, eModeImportData mode, int maxLength);
 void drawBox(POINT lcDisplay, SIZE size, char *caption);
 void dis_Clear(POINT lcHeadClear, SIZE size);
+bool messagebox(char *content, int notifyButton, POINT lcDisplay);
