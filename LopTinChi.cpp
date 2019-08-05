@@ -192,15 +192,15 @@ void Xoa_LLTC(ListLopTinChi &lltc)
 				ShowListToDeleteLTCFrame({ p.x, p.y + 8 });
 				Xuat(lltc.ds[i], { p.x, p.y + 14 });
 
-				//TODO: Show two button for option delete or not.
+				//hien thi 2 lua chon xoa or k xoa
 				if (TwoOptionYN({p.x + 10, p.y + 17}) == 1)
 					return;
 
 				//xoa ds ltc hien tai va cap nhat danh sach
 				arrMaLop[mltc - 1] = mltc;
-				for (int j = i; j < lltc.SoLuong - 1; j++)
+				for (int j = i; j < lltc.SoLuong - 1; j++)// o truoc nen -1
 				{
-					strcpy_s(lltc.ds[j]->MAMH, lltc.ds[j + 1]->MAMH);
+					strcpy_s(lltc.ds[j]->MAMH, lltc.ds[j + 1]->MAMH);//o sau nut can xoa nen +1
 					lltc.ds[j]->MALOPTC = lltc.ds[j + 1]->MALOPTC;
 					lltc.ds[j]->Nhom = lltc.ds[j + 1]->Nhom;
 					lltc.ds[j]->NienKhoa = lltc.ds[j + 1]->HocKy;
@@ -234,7 +234,7 @@ void LuuFile_LLTC(ListLopTinChi lltc)
 	{
 		if (n != 0)
 			FileOut << endl;
-
+		//ghi vao file lan luot cac phan tu
 		FileOut << lltc.ds[n]->MALOPTC << endl
 			<< lltc.ds[n]->MAMH << endl
 			<< lltc.ds[n]->NienKhoa << endl
@@ -254,7 +254,7 @@ void DocFile_LLTC(ListLopTinChi &lltc)
 	if (lltc.SoLuong != 0)
 		lltc.SoLuong = 0;
 
-	while (!FileIn.eof())
+	while (!FileIn.eof())// co ket thuc file ko
 	{
 		LopTinChi ltc;
 
@@ -271,7 +271,7 @@ void DocFile_LLTC(ListLopTinChi &lltc)
 		lltc.SoLuong++;
 		if (lltc.SoLuong > memoenable)
 			lltc.ds[lltc.SoLuong - 1] = new LopTinChi;
-
+		//mang bat dau tu 0 muon xac dinh vi tri thi phai -1
 		lltc.ds[lltc.SoLuong - 1]->MALOPTC = ltc.MALOPTC;
 		strcpy_s(lltc.ds[lltc.SoLuong - 1]->MAMH, ltc.MAMH);
 		lltc.ds[lltc.SoLuong - 1]->Nhom = ltc.Nhom;
