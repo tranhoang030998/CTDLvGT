@@ -479,7 +479,300 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 			}
 		}
 	}
-	else if (index == 3)//data
+	else if (index == 3) // Bang Diem
+	{
+		SIZE sCreate, sShow, sShowByDay, sClear, sTenDay;
+		POINT lCreate, lShow, lShowByDay, lClear, lTenDay;
+		int space = 0;
+
+		sCreate = sShow = sShowByDay = sTenDay = { 15, 5 };
+		lCreate = { lcBtnHead.x, lcBtnHead.y + 5 + space };
+		lShow = { lCreate.x, lCreate.y + sCreate.cy + space };
+		lShowByDay = { lShow.x, lShow.y + sShow.cy + space };
+		lTenDay = { lShowByDay.x, lShowByDay.y + sShowByDay.cy + space };
+
+		lClear = { lCreate.x, lCreate.y };
+		sClear = { sCreate.cx, (lTenDay.y + sTenDay.cy) - lClear.y };
+
+		Button(true, "Nhap Diem", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Diem Theo Mon", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Diem TB", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Diem TK", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+
+		int maxBTN = 4;
+		int index = 0;
+		bool isControl = false;
+		while (true)
+		{
+			if (_kbhit())
+			{
+				char key = _getch();
+
+				if (key == -32)
+				{
+					isControl = true;
+				}
+				else if (isControl)
+				{
+					if (key == dir_LEFT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_LEFT;
+						break;
+					}
+					else if (key == dir_RIGHT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_RIGHT;
+						break;
+					}
+					else if (key == dir_DOWN)
+					{
+						index++;
+						if (index >= maxBTN)
+						{
+							index = 0;
+							Button(true, "Nhap Diem", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Diem TK", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(false, "Nhap Diem", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Diem Theo Mon", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "Diem Theo Mon", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Diem TB", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 3)
+						{
+							Button(false, "Diem TB", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Diem TK", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					else if (key == dir_UP)
+					{
+						index--;
+						if (index < 0)
+						{
+							index = maxBTN - 1;
+							Button(false, "Nhap Diem", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Diem TK", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "In Danh Sach", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Diem TB", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(true, "Diem Theo Mon", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Diem TB", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 0)
+						{
+							Button(true, "Nhap Diem", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Diem Theo Mon", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					isControl = false;
+				}
+				else
+				{
+					if (key == key_ESC)
+					{
+						//out
+						dir = key_ESC;
+						break;
+					}
+					else if (key == key_ENTER)
+					{
+						if (index == 0) // nhap diem
+						{
+							system("cls");
+							NhapDiem(lltc, lsv, lmh, false);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 1) // in diem theo mon
+						{
+							system("cls");
+							NhapDiem(lltc, lsv, lmh, true);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 2) // diem trung binh
+						{
+							system("cls");
+							XemBangDiemTBTheoLop(lltc, lsv, lmh);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 3) // in 
+						{
+							
+							dir = key_SPACE;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	else if (index == 4)//Reg
+	{
+		SIZE sCreate, sShow, sShowByDay, sClear, sTenDay;
+		POINT lCreate, lShow, lShowByDay, lClear, lTenDay;
+		int space = 0;
+
+		sCreate = sShow = sShowByDay = sTenDay = { 15, 5 };
+		lCreate = { lcBtnHead.x, lcBtnHead.y + 5 + space };
+		lShow = { lCreate.x, lCreate.y + sCreate.cy + space };
+		lShowByDay = { lShow.x, lShow.y + sShow.cy + space };
+		lTenDay = { lShowByDay.x, lShowByDay.y + sShowByDay.cy + space };
+
+		lClear = { lCreate.x, lCreate.y };
+		sClear = { sCreate.cx, (lTenDay.y + sTenDay.cy) - lClear.y };
+
+		Button(true, "Them SV", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Xoa SV", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Sua SV", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+		Button(false, "Dang Ky", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+
+		int maxBTN = 4;
+		int index = 0;
+		bool isControl = false;
+		while (true)
+		{
+			if (_kbhit())
+			{
+				char key = _getch();
+
+				if (key == -32)
+				{
+					isControl = true;
+				}
+				else if (isControl)
+				{
+					if (key == dir_LEFT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_LEFT;
+						break;
+					}
+					else if (key == dir_RIGHT)
+					{
+						//del list
+						dis_Clear(lClear, sClear);
+						dir = dir_RIGHT;
+						break;
+					}
+					else if (key == dir_DOWN)
+					{
+						index++;
+						if (index >= maxBTN)
+						{
+							index = 0;
+							Button(true, "Them SV", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Dang Ky", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(false, "Them SV", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Xoa SV", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "Xoa SV", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua SV", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 3)
+						{
+							Button(false, "Sua SV", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Dang Ky", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					else if (key == dir_UP)
+					{
+						index--;
+						if (index < 0)
+						{
+							index = maxBTN - 1;
+							Button(false, "Them SV", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Dang Ky", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 2)
+						{
+							Button(false, "Dang Ky", lTenDay, sTenDay, ColorCode_Blue, ColorCode_Black);
+							Button(true, "Sua", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 1)
+						{
+							Button(true, "Xoa SV", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Sua SV", lShowByDay, sShowByDay, ColorCode_Blue, ColorCode_Black);
+						}
+						else if (index == 0)
+						{
+							Button(true, "Them SV", lCreate, sCreate, ColorCode_Blue, ColorCode_Black);
+							Button(false, "Xoa SV", lShow, sShow, ColorCode_Blue, ColorCode_Black);
+						}
+					}
+					isControl = false;
+				}
+				else
+				{
+					if (key == key_ESC)
+					{
+						//out
+						dir = key_ESC;
+						break;
+					}
+					else if (key == key_ENTER)
+					{
+						if (index == 0) // them SVDK
+						{
+							system("cls");
+							ThemSinhVien_DSDK(lltc);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 1) // xoa SVDK
+						{
+							system("cls");
+							XoaSinhVien_DSDK(lltc);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 2) //sua
+						{
+							system("cls");
+							SuaSinhVien_DSDK(lltc);
+
+							dir = key_SPACE;
+							break;
+						}
+						else if (index == 3) // in 
+						{
+							system("cls");
+							DangKyHoc(lltc, lsv);
+							dir = key_SPACE;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	else if (index == 5)//data
 	{
 		SIZE sBtnSave, sBtnLoad, sClear;
 		POINT lBtnSave, lBtnLoad, lClear;
@@ -602,23 +895,27 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 
 bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMonHoc &lmh)
 {
-	SIZE sBtnEmployees, sBtnMaterial, sBtnBill, sBtnData, sGird;
-	POINT lBtnEmployees, lBtnMaterial, lBtnBill, lBtnData;
+	SIZE sBtnEmployees, sBtnMaterial, sBtnBill, sBtnScore, sBtnReg, sBtnData, sGird;
+	POINT lBtnEmployees, lBtnMaterial, lBtnBill, lBtnScore, lBtnReg, lBtnData;
 	int space = 5;
 
-	sBtnEmployees = sBtnMaterial = sBtnBill = sBtnData = { 15, 5 };
+	sBtnEmployees = sBtnMaterial = sBtnBill = sBtnData = sBtnScore  = sBtnReg= { 15, 5 };
 	sGird = { sBtnEmployees.cx * 3 + space * 2, 40 };
 	lBtnMaterial = { lcDisplay.x + 3, lcDisplay.y + 8 };
 	lBtnEmployees = { lBtnMaterial.x + sBtnMaterial.cx + space, lBtnMaterial.y };
 	lBtnBill = { lBtnEmployees.x + sBtnEmployees.cx + space, lBtnMaterial.y };
-	lBtnData = { lBtnBill.x + sBtnBill.cx + space, lBtnMaterial.y };
+	lBtnScore = { lBtnBill.x + sBtnBill.cx + space, lBtnMaterial.y };
+	lBtnReg = { lBtnScore.x + sBtnScore.cx + space, lBtnScore.y };
+	lBtnData = {lBtnReg.x + sBtnReg.cx + space, lBtnReg.y};
 
 	Button(true, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+	Button(false, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
+	Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 
-	int maxBTN = 4;
+	int maxBTN = 6;
 	int index = 0;
 	int key = 0;
 	dropDown(lBtnMaterial, index, key, lltc, lsv, lmh);
@@ -647,10 +944,22 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			else if (index == 2)
 			{
 				Button(true, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
-				Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnBill, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 3)
+			{
+				Button(true, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				dropDown(lBtnScore, index, key, lltc, lsv, lmh);
+			}
+			else if (index == 4)
+			{
+				Button(true, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
+				dropDown(lBtnReg, index, key, lltc, lsv, lmh);
+			}
+			else if (index == 5)
 			{
 				Button(false, "Sinh Vien", lBtnMaterial, sBtnMaterial, ColorCode_Blue, ColorCode_Black);
 				Button(true, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
@@ -686,6 +995,18 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			else if (index == 3)
 			{
 				Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
+				dropDown(lBtnScore, index, key, lltc, lsv, lmh);
+			}
+			else if (index == 4)
+			{
+				Button(false, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				dropDown(lBtnReg, index, key, lltc, lsv, lmh);
+			}
+			else if(index == 5)
+			{
+				Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 				Button(true, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnData, index, key, lltc, lsv, lmh);
 			}
