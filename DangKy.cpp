@@ -69,6 +69,25 @@ int Erase_DSDK(ListDangKy *&ldk, char *maSV)
 	return 0;
 }
 
+void Show(ListDangKy *ldk, POINT lc)
+{	
+	gotoxy(lc.x, lc.y + 1); cout << " _____________________________";
+	gotoxy(lc.x, lc.y + 2); cout << "|      Danh sach Dang Ky      |";
+	gotoxy(lc.x, lc.y + 3); cout << "|-----------------------------|";
+	gotoxy(lc.x, lc.y + 4); cout << "| Ma Sinh Vien   |  Diem      |";
+	gotoxy(lc.x, lc.y + 5); cout << "|-----------------------------|";
+	
+	int i = 0;
+	for (ListDangKy *p = ldk; p != NULL; p = p->pNext)
+	{
+		gotoxy(lc.x, lc.y      + 6 + i * 2); cout << "| " << p->ThongTinDangKy.MASV;
+		gotoxy(lc.x + 17, lc.y + 6 + i * 2); cout << "| " << p->ThongTinDangKy.DIEM;
+		gotoxy(lc.x + 30, lc.y + 6 + i * 2); cout << "|";
+		gotoxy(lc.x, lc.y      + 6 + i * 2 + 1); cout << "|-----------------------------|";
+		i++;
+	}
+}
+
 void DocFile_DSDK(ListLopTinChi &lltc)
 {
 	fstream FileIn("DSDANGKY.TXT", ios::in);
@@ -156,6 +175,7 @@ void ThemSinhVien_DSDK(ListLopTinChi &lltc)
 				{
 					system("cls");
 					ListDangKy *ndk;
+					Show(lltc.ds[i]->listSV, {p.x, p.y + 6});
 					EnterMaSVFrame(p);
 
 					while (true)
@@ -173,6 +193,7 @@ void ThemSinhVien_DSDK(ListLopTinChi &lltc)
 							ndk->pNext = NULL;
 
 							InsertToListDK(lltc.ds[i]->listSV, ndk);
+							Show(lltc.ds[i]->listSV, {p.x, p.y + 6});
 							Alert("Da them sinh vien thanh cong.", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
 							gotoxy(p.x + 14, p.y + 5); cout << "                           ";
 						}
@@ -206,8 +227,8 @@ void XoaSinhVien_DSDK(ListLopTinChi &lltc)
 				if (mltc == lltc.ds[i]->MALOPTC)
 				{
 					system("cls");
+					Show(lltc.ds[i]->listSV, { p.x, p.y + 6 });
 					EnterMaSVFrame(p);
-
 					while (true)
 					{
 						strcpy_s(val, "\0");
@@ -218,8 +239,10 @@ void XoaSinhVien_DSDK(ListLopTinChi &lltc)
 						else
 						{
 							int rel = Erase_DSDK(lltc.ds[i]->listSV, val);
-							if(rel == 1)
+							if (rel == 1)
+							{
 								Alert("Da xoa sinh vien thanh cong.", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
+							}
 							else if(rel == 0)
 								Alert("Khong tim thay ma sinh vien tuong ung.", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
 							gotoxy(p.x + 14, p.y + 5); cout << "                           ";
@@ -272,6 +295,7 @@ void Nhap_DSDK(ListDangKy *&ldk)
 //TODO: Show all student by mode show
 void Xuat_DSDK(ListLopTinChi lltc, eShowSVDK e)
 {
+	
 
 }
 
@@ -536,7 +560,7 @@ void XemBangDiemTBTheoLop(ListLopTinChi lltc, ListSinhVien lsv, ListMonHoc lmh)
 				{
 					for (ListDangKy *dk = lltc.ds[ltc]->listSV; dk != NULL; dk = dk->pNext)
 					{
-						if (strcmp(nSV->sinhvien.MASV, dk->ThongTinDangKy.MASV))
+						if (strcmp(nSV->sinhvien.MASV, dk->ThongTinDangKy.MASV) == 0)
 						{
 							NoteMH *nMH = SearchNodeByCodeSubject(lmh, lltc.ds[ltc]->MAMH);
 							tongSoTinChi += (nMH->monHoc.STCLT + nMH->monHoc.STCTH);

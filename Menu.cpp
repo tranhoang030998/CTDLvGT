@@ -912,7 +912,7 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 	Button(false, "Mon Hoc", lBtnEmployees, sBtnEmployees, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Lop TC", lBtnBill, sBtnBill, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
-	Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+	Button(false, "Dang Ky", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 	Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 
 	int maxBTN = 6;
@@ -950,12 +950,12 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			else if (index == 3)
 			{
 				Button(true, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
-				Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Dang Ky", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnScore, index, key, lltc, lsv, lmh);
 			}
 			else if (index == 4)
 			{
-				Button(true, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Dang Ky", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 				Button(false, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnReg, index, key, lltc, lsv, lmh);
 			}
@@ -1001,12 +1001,12 @@ bool menu_Select(POINT lcDisplay, ListLopTinChi &lltc, ListSinhVien &lsv, ListMo
 			else if (index == 4)
 			{
 				Button(false, "Bang Diem", lBtnScore, sBtnScore, ColorCode_Blue, ColorCode_Black);
-				Button(true, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				Button(true, "Dang Ky", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnReg, index, key, lltc, lsv, lmh);
 			}
 			else if(index == 5)
 			{
-				Button(false, "Dang Ky Hoc", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
+				Button(false, "Dang Ky", lBtnReg, sBtnReg, ColorCode_Blue, ColorCode_Black);
 				Button(true, "Du Lieu", lBtnData, sBtnData, ColorCode_Blue, ColorCode_Black);
 				dropDown(lBtnData, index, key, lltc, lsv, lmh);
 			}
@@ -1034,9 +1034,9 @@ void menu_Show()
 
 	lGird = { 20, 2 };
 
-	lShowText = { lGird.x + 13, lGird.y + 1 };
+	lShowText = { lGird.x + 25, lGird.y + 1 };
 	lShowSelect = { lGird.x + 12, lGird.y + 7 };
-	sGird = { 110, 42 };
+	sGird = { 140, 42 };
 	while (true)
 	{
 		system("cls");
