@@ -6,6 +6,7 @@ enum keyControl { dir_LEFT = 75, dir_RIGHT = 77, dir_UP = 72, dir_DOWN = 80, key
 enum notifyButton { YES, NO, CANCEL, YES_NO, YES_CANCEL };
 enum eModeImportData { NUMBER, LOWER, UPPER, ALL, UPPER_LOWER, UPPER_NUMBER, ALL_SPACE, SEX, TYPEBILL, SCORE };
 
+
 char* char_formartText(char *text);
 char* char_substr(char *Source, unsigned int lcCut, unsigned int quantity);
 char* EntryData(char *text, POINT lc, eModeImportData mode, int maxLength);

@@ -193,10 +193,13 @@ void Them_MH(ListMonHoc &lmh)
 	strcpy_s(stcth, "\0");
 
 	EntryData(mmh, { p.x + 20, p.y + 5 }, eModeImportData::UPPER_NUMBER, 8);
-	EntryData(tmh, { p.x + 20, p.y + 7 }, eModeImportData::UPPER_NUMBER, 20);
+	EntryData(tmh, { p.x + 20, p.y + 7 }, eModeImportData::UPPER_LOWER, 20);
 	EntryData(stclt, { p.x + 20, p.y + 9 }, eModeImportData::NUMBER, 2);
 	EntryData(stcth, { p.x + 20, p.y + 11 }, eModeImportData::NUMBER, 2);
 
+	if (strcmp(mmh, "") == 0 || strcmp(tmh, "") == 0 || strcmp(stclt, "") == 0 || strcmp(stcth, "") == 0)
+		return;
+	
 	data = new NoteMH;
 	data->pLeft = data->pRight = NULL;
 	strcpy_s(data->monHoc.MAMH, mmh);
@@ -270,10 +273,46 @@ NoteMH* FindToRemove(NoteMH *root, char* CodeSubject)
 	return root;
 }
 
+MonHoc LeftMostValue(const NoteMH* root)
+{
+	while (root->pLeft != NULL)
+		root = root->pLeft;
+	return root->monHoc;
+}
+
+NoteMH* Delete(NoteMH* root, char* CodeSubject)
+{
+	if (root == NULL)
+		return root;
+	if (strcmp(CodeSubject, root->monHoc.MAMH) < 0)
+		root->pLeft = Delete(root->pLeft, CodeSubject);
+	else if (strcmp(CodeSubject, root->monHoc.MAMH) > 0)
+		root->pRight = Delete(root->pRight, CodeSubject);
+	else
+	{
+		// root->data == value, delete this node
+		if (root->pLeft == NULL)
+		{
+			NoteMH* newRoot = root->pRight;
+			free(root);
+			return newRoot;
+		}
+		if (root->pRight == NULL)
+		{
+			NoteMH* newRoot = root->pLeft;
+			free(root);
+			return newRoot;
+		}
+		root->monHoc = LeftMostValue(root->pRight);
+		root->pRight = Delete(root->pRight, root->monHoc.MAMH);
+	}
+	return root;
+}
+
 void Xoa_MH(ListMonHoc &lmh)
 {
 	POINT p = { 10, 10 };
-	char codeSubject[11];
+	char codeSubject[11] = "\0";
 
 	while (true)
 	{
@@ -291,7 +330,7 @@ void Xoa_MH(ListMonHoc &lmh)
 		}
 		else
 		{
-			lmh = FindToRemove(lmh, codeSubject);
+			lmh = Delete(lmh, codeSubject);
 
 			Alert("Da xoa thanh cong!", { p.x, p.y - 5 }, ColorCode_Red, 2000, ColorCode_White);
 			return;
@@ -303,8 +342,7 @@ void Xoa_MH(ListMonHoc &lmh)
 void Sua_MH(ListMonHoc &lmh)
 {
 	POINT p = { 10, 10 };
-	char codeSubject[11];
-
+	char codeSubject[11] = "\0";
 	while (true)
 	{
 		EnterSubjectCodeFrame(p);
@@ -323,6 +361,8 @@ void Sua_MH(ListMonHoc &lmh)
 		}
 		else
 		{
+
+			EnterSubjectsFrame(p);
 			char mmh[10], tmh[21], stclt[3], stcth[3];
 			strcpy_s(mmh, mh->monHoc.MAMH);
 			strcpy_s(tmh, mh->monHoc.TenMH);

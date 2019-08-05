@@ -172,7 +172,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						{
 							system("cls");
 							Xuat_SV(lsv);
-
+							_getch();
 							dir = key_SPACE;
 							break;
 						}
@@ -320,7 +320,7 @@ void dropDown(POINT lcBtnHead, int index, int &dir, ListLopTinChi &lltc, ListSin
 						{
 							system("cls");
 							ShowByNameSubjects(lmh);
-
+							_getch();
 							dir = key_SPACE;
 							break;
 						}

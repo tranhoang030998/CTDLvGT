@@ -1,6 +1,6 @@
 ﻿#include "Confirm.h"
 				
-void drawRectangle(POINT &result, POINT lc, SIZE s, int colorBG, int colorBorder)
+void DR(POINT &result, POINT lc, SIZE s, int colorBG, int colorBorder)
 {
 	POINT LCtemp = lc;
 	for (int i = 0; i < s.cy; i++)
@@ -454,7 +454,7 @@ bool messagebox(char *content, int notifyButton, POINT lcDisplay)
 
 	if (notifyButton == YES_NO)
 	{
-		drawRectangle(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
+		DR(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
 		gotoxy(lcDisplay.x + 5, lcDisplay.y + 2); BGColorText("Thong Bao", ColorCode_Blue, ColorCode_DarkWhite);
 		gotoxy(lcDisplay.x + 3, lcDisplay.y + 4); BGColorText(content, ColorCode_Blue, ColorCode_DarkWhite);
 
@@ -526,7 +526,7 @@ bool messagebox(char *content, int notifyButton, POINT lcDisplay)
 		char *text = new char[7];
 		strcpy_s(text, 6, notifyButton == YES ? "YES" : (notifyButton == NO ? "NO" : "CANCEL"));
 
-		drawRectangle(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
+		DR(l, lcDisplay, sizeMessageBox, ColorCode_DarkWhite, ColorCode_DarkWhite);
 		gotoxy(lcDisplay.x + 5, lcDisplay.y + 2); BGColorText("Thong Bao", ColorCode_Blue, ColorCode_DarkWhite);
 		gotoxy(lcDisplay.x + 3, lcDisplay.y + 4); BGColorText(content, ColorCode_Blue, ColorCode_DarkWhite);
 
